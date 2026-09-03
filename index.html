@@ -405,10 +405,10 @@ min-height:180px;
     </button>
     <nav>
       <button data-goto="home">Inicio</button>
-      <button data-goto="Hoja1">Hoja1</button>
-      <button data-goto="Hoja2">Hoja2</button>
-      <button data-goto="finance">Finance</button>
-      <button data-goto="rrhh">RRHH</button>
+      <button data-goto="Hoja1">Venta+Cartera</button>
+      <button data-goto="Hoja2">ABC Proveedores</button>
+      <button data-goto="Hoja3">CTOOL</button>
+      <button data-goto="Hoja4">RRHH</button>
     </nav>
     <div class="drawer-foot">Avoris · Performance en movilidad</div>
   </aside>
@@ -580,7 +580,7 @@ min-height:180px;
         <button class="icon-btn" data-goto="Hoja1" aria-label="Anterior">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
         </button>
-        <button class="icon-btn" data-goto="finance" aria-label="Siguiente">
+        <button class="icon-btn" data-goto="Hoja3" aria-label="Siguiente">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
         </button>
         <button class="icon-btn" data-open-filter aria-label="Filtros">
@@ -608,8 +608,8 @@ min-height:180px;
     </div>
   </section>
 
-  <!-- ============ PAGE: FINANCE (pendiente de contenido) ============ -->
-  <section class="page" id="page-finance">
+  <!-- ============ PAGE: Hoja3 ============ -->
+  <section class="page" id="page-Hoja3">
     <header class="app-header">
       <div class="header-side">
         <button class="icon-btn" data-open-drawer aria-label="Menú">
@@ -621,20 +621,20 @@ min-height:180px;
         <button class="icon-btn" data-goto="Hoja2" aria-label="Anterior">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
         </button>
-        <button class="icon-btn" data-goto="rrhh" aria-label="Siguiente">
+        <button class="icon-btn" data-goto="Hoja4" aria-label="Siguiente">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
         </button>
       </div>
     </header>
     <div class="placeholder-page">
       <div class="badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#16262E" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg></div>
-      <h2 class="serif">Finance</h2>
+      <h2 class="serif">Hoja3</h2>
       <p>El contenido analítico de esta pestaña se incorporará próximamente.</p>
     </div>
   </section>
 
-  <!-- ============ PAGE: RRHH (pendiente de contenido) ============ -->
-  <section class="page" id="page-rrhh">
+  <!-- ============ PAGE: Hoja4 ============ -->
+  <section class="page" id="page-Hoja4">
     <header class="app-header">
       <div class="header-side">
         <button class="icon-btn" data-open-drawer aria-label="Menú">
@@ -643,14 +643,14 @@ min-height:180px;
       </div>
       <img class="header-logo" src="https://github.com/DAGOAVORIS/DAGO/blob/main/img/logo.svg" alt="Avoris" />
       <div class="header-side">
-        <button class="icon-btn" data-goto="finance" aria-label="Anterior">
+        <button class="icon-btn" data-goto="Hoja3" aria-label="Anterior">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
         </button>
       </div>
     </header>
     <div class="placeholder-page">
       <div class="badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#16262E" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg></div>
-      <h2 class="serif">RRHH</h2>
+      <h2 class="serif">Hoja4</h2>
       <p>El contenido analítico de esta pestaña se incorporará próximamente.</p>
     </div>
   </section>
@@ -659,9 +659,9 @@ min-height:180px;
 
 <script>
 (function(){
-  var TABS = ["home","Hoja1","Hoja2","finance","rrhh"];
+  var TABS = ["home","Hoja1","Hoja2","Hoja3","Hoja4"];
   var FILTERS = {
-    Hoja1:      { app:"84caef0f-17ac-4d23-9731-4d19af507756", panel:"KhNSfJ", clear:"NbMg" },
+    Hoja1: { app:"84caef0f-17ac-4d23-9731-4d19af507756", panel:"KhNSfJ", clear:"NbMg" },
     Hoja2: { app:"a030b19c-9fc2-45ba-bfd8-870848882dc8", panel:"HHhxaf", clear:"gZczYD" }
   };
   var currentFilterTab = null;
