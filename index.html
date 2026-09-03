@@ -56,7 +56,7 @@
   #app{
     max-width:560px;
     margin:0 auto;
-    min-height:100vh;
+    min-height:33vh;
     background:var(--white);
     position:relative;
     box-shadow:0 0 40px rgba(0,0,0,0.06);
@@ -126,18 +126,15 @@
 
   /* ---------- Tabs / pages ---------- */
   .page{
-  visibility:hidden;
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  z-index:0;
+    visibility:hidden;
+    position:absolute;
+    top:0;left:0;right:0;
+    z-index:0;
   }
-   
   .page.active{
-  visibility:visible;
-  position:relative;
-  z-index:1;
+    visibility:visible;
+    position:relative;
+    z-index:1;
   }
 
   /* ---------- HOME ---------- */
@@ -203,11 +200,11 @@
   /* ---------- Section pages ---------- */
   .section-page{
     background:var(--cream);
-    min-height:100vh;
+    min-height:50vh;
   }
   .section-page .white-zone{background:var(--white);}
   .section-page .pad{padding:16px;}
-  
+
   .tab-title{padding:18px 16px 6px;}
   .tab-title .eyebrow{
     margin:0 0 2px;font-size:13px;color:var(--muted);
@@ -409,7 +406,7 @@
     </header>
 
     <div class="hero">
-      <video autoplay muted loop playsinline src="https://d1pnk0oci680mj.cloudfront.net/uploads/video_avoris_a695b53c38.mp4"></video>
+      <video autoplay muted loop playsinline src="">https://d1pnk0oci680mj.cloudfront.net/uploads/video_avoris_a695b53c38.mp4">
       <div class="hero-content">
         <p class="hero-kicker">Grupo Avoris</p>
         <h1 class="hero-title serif">Versión Movil</h1>
@@ -784,3 +781,5 @@
 </script>
 
 <script src="/bb
+
+Quiero limitar todas las hojas hasta que llegue al ultimo objete de cada hoja y no que se pueda seguir haciendo scroll en las hojas si no hay contenido
