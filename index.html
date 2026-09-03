@@ -371,6 +371,7 @@
       <button data-goto="Hoja2">ABC Proveedores</button>
       <button data-goto="Hoja3">CTOOL</button>
       <button data-goto="Hoja4">RRHH</button>
+      <button data-goto="Hoja5">Jira</button>
     </nav>
     <div class="drawer-foot">Avoris · Performance en movilidad</div>
   </aside>
@@ -573,17 +574,52 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       </div>
-      <img class="header-logo" src="https://github.com/DAGOAVORIS/DAGO/blob/main/img/logo.svg" alt="Avoris" />
+      <img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
       <div class="header-side">
         <button class="icon-btn" data-goto="Hoja3" aria-label="Anterior">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
         </button>
+        <button class="icon-btn" data-goto="Hoja5" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="icon-btn" data-open-filter aria-label="Filtros">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+        </button>
       </div>
     </header>
-    <div class="placeholder-page">
-      <div class="badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#16262E" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg></div>
-      <h2 class="serif">Hoja4</h2>
-      <p>El contenido analítico de esta pestaña se incorporará próximamente.</p>
+
+    <div class="section-page" id="Hoja4-body">
+      <div class="tab-title">
+        <h2>RRHH</h2>
+      </div>
+
+      <div class="tab-title">
+        <p class="eyebrow serif">Geolocalización (tabla)</p>
+      </div>
+      <div class="obj-card full-tall plain">
+        <div class="obj-mount">
+          <qlik-embed ui="analytics/chart" app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" object-id="NPmNnC"></qlik-embed>
+        </div>
+      </div>
+
+      <div class="tab-title">
+        <p class="eyebrow serif">Geolocalización (mapa) </p>
+      </div>
+      <div class="obj-card full-tall plain">
+        <div class="obj-mount">
+          <qlik-embed ui="analytics/chart" app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" object-id="qUSpfg"></qlik-embed>
+        </div>
+      </div>
+
+      <div class="tab-title">
+        <p class="eyebrow serif">Listado empleados</p>
+      </div>
+      <div class="obj-card full-tall plain">
+        <div class="obj-mount">
+          <qlik-embed ui="analytics/chart" app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" object-id="WLZPnA"></qlik-embed>
+        </div>
+      </div>
+      
     </div>
   </section>
 
