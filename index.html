@@ -56,7 +56,7 @@
   #app{
     max-width:560px;
     margin:0 auto;
-    min-height:33vh;
+    min-height:100vh;
     background:var(--white);
     position:relative;
     box-shadow:0 0 40px rgba(0,0,0,0.06);
@@ -200,11 +200,15 @@
   /* ---------- Section pages ---------- */
   .section-page{
     background:var(--cream);
-    min-height:50vh;
+    min-height:auto;
   }
   .section-page .white-zone{background:var(--white);}
   .section-page .pad{padding:16px;}
 
+  .obj-card:last-child{
+  margin-bottom:0;
+  }
+  
   .tab-title{padding:18px 16px 6px;}
   .tab-title .eyebrow{
     margin:0 0 2px;font-size:13px;color:var(--muted);
