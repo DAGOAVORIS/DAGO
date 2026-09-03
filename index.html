@@ -816,7 +816,7 @@ qlik-embed{display:block;width:100%;height:100%;}
       var key = sessionStorage.key(i);
       if (key && key.indexOf("qlik") !== -1 && key.indexOf("access-token") !== -1) {
         var val = sessionStorage.getItem(key);
-        if (val) return val; // el valor YA es el token, sin envoltorio JSON
+        if (val) return val; // el valor ya es el token JWT en texto plano
       }
     }
     return null;
@@ -890,34 +890,37 @@ qlik-embed{display:block;width:100%;height:100%;}
 
   async function filtrarAccesoPorApp() {
     var token = getQlikToken();
-    var headers = { "Accept": "application/json" };
-    var fetchOpts = { headers: headers, credentials: "include" };
-    if (token) headers["Authorization"] = "Bearer " + token;
-
-    try {
-      var resp = await fetch(
-        "https://avoristravel.eu.qlikcloud.com/api/v1/items?resourceType=app&limit=100",
-        fetchOpts
-      );
-      if (!resp.ok) {
-        console.error("Error consultando apps visibles:", resp.status);
-        return;
-      }
-      var data = await resp.json();
-      var idsVisibles = data.data.map(function(item){ return item.resourceId; });
-
-      accesibles = Object.keys(APP_POR_HOJA).filter(function(hojaId){
-        return idsVisibles.indexOf(APP_POR_HOJA[hojaId]) !== -1;
-      });
-
-      Object.keys(APP_POR_HOJA).forEach(function(hojaId){
-        if (accesibles.indexOf(hojaId) === -1) ocultarBotonMenu(hojaId);
-      });
-
-      actualizarFlechas();
-    } catch (err) {
-      console.error("No se pudo verificar acceso a apps Qlik:", err);
+    if (!token) {
+      console.error("No se encontró el token de Qlik en sessionStorage.");
+      return;
     }
+    var headers = { "Accept": "application/json", "Authorization": "Bearer " + token };
+
+    // Consultamos cada app individualmente: si el usuario tiene acceso, Qlik responde 200;
+    // si no, responde 403/404. Evita problemas de paginación al listar todas las apps del tenant.
+    var checks = Object.keys(APP_POR_HOJA).map(async function(hojaId) {
+      var appId = APP_POR_HOJA[hojaId];
+      try {
+        var resp = await fetch(
+          "https://avoristravel.eu.qlikcloud.com/api/v1/apps/" + appId,
+          { headers: headers }
+        );
+        return { hojaId: hojaId, ok: resp.ok };
+      } catch (err) {
+        console.error("Error comprobando acceso a " + hojaId + ":", err);
+        return { hojaId: hojaId, ok: false };
+      }
+    });
+
+    var resultados = await Promise.all(checks);
+
+    accesibles = resultados.filter(function(r){ return r.ok; }).map(function(r){ return r.hojaId; });
+
+    resultados.forEach(function(r){
+      if (!r.ok) ocultarBotonMenu(r.hojaId);
+    });
+
+    actualizarFlechas();
   }
 
   window.addEventListener("DOMContentLoaded", function(){
