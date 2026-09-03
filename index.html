@@ -197,7 +197,7 @@
   }
   .hr-thin{border:none;border-top:1px solid var(--line);margin:0 0 18px;}
 
-  /* ---------- Section pages (Ventas / Franquicias) ---------- */
+  /* ---------- Section pages (Hoja1 / Hoja2) ---------- */
   .section-page{
     background:var(--cream);
     min-height:100vh;
@@ -405,8 +405,8 @@ min-height:180px;
     </button>
     <nav>
       <button data-goto="home">Inicio</button>
-      <button data-goto="ventas">Ventas</button>
-      <button data-goto="franquicias">Franquicias</button>
+      <button data-goto="Hoja1">Hoja1</button>
+      <button data-goto="Hoja2">Hoja2</button>
       <button data-goto="finance">Finance</button>
       <button data-goto="rrhh">RRHH</button>
     </nav>
@@ -436,7 +436,7 @@ min-height:180px;
       </div>
       <img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
       <div class="header-side">
-        <button class="icon-btn" data-goto="ventas" aria-label="Siguiente">
+        <button class="icon-btn" data-goto="Hoja1" aria-label="Siguiente">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
         </button>
       </div>
@@ -465,8 +465,8 @@ min-height:180px;
     </article>
   </section>
 
-  <!-- ============ PAGE: VENTAS ============ -->
-  <section class="page" id="page-ventas">
+  <!-- ============ PAGE: Hoja1 ============ -->
+  <section class="page" id="page-Hoja1">
     <header class="app-header">
       <div class="header-side">
         <button class="icon-btn" data-open-drawer aria-label="Menú">
@@ -478,7 +478,7 @@ min-height:180px;
         <button class="icon-btn" data-goto="home" aria-label="Anterior">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
         </button>
-        <button class="icon-btn" data-goto="franquicias" aria-label="Siguiente">
+        <button class="icon-btn" data-goto="Hoja2" aria-label="Siguiente">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
         </button>
         <button class="icon-btn" data-open-filter aria-label="Filtros">
@@ -487,10 +487,10 @@ min-height:180px;
       </div>
     </header>
 
-    <div class="section-page" id="ventas-body">
+    <div class="section-page" id="Hoja1-body">
       <div class="tab-title">
         <p class="eyebrow serif">Analytics</p>
-        <h2>Ventas</h2>
+        <h2>Hoja1</h2>
       </div>
 
       <div class="kpi-row">
@@ -523,7 +523,7 @@ min-height:180px;
         <button class="table-menu-item" data-open-table="table-region-client">
           <span class="tmi-bar"></span>
           <span class="tmi-text">
-            <span class="tmi-title serif">Ventas por región y cliente</span>
+            <span class="tmi-title serif">Hoja1 por región y cliente</span>
             <span class="tmi-sub">Detalle comercial</span>
           </span>
           <span class="tmi-chevron">&rsaquo;</span>
@@ -545,7 +545,7 @@ min-height:180px;
        only visibility toggles when opened/closed. -->
   <div class="table-overlay" id="table-region-client">
     <header class="overlay-header">
-      <h3 class="serif">Ventas por región y cliente</h3>
+      <h3 class="serif">Hoja1 por región y cliente</h3>
       <button class="collapse-btn-flat" data-close-table aria-label="Cerrar">
         <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" width="16" height="16"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
@@ -567,8 +567,8 @@ min-height:180px;
     </div>
   </div>
 
-  <!-- ============ PAGE: FRANQUICIAS ============ -->
-  <section class="page" id="page-franquicias">
+  <!-- ============ PAGE: Hoja2 ============ -->
+  <section class="page" id="page-Hoja2">
     <header class="app-header">
       <div class="header-side">
         <button class="icon-btn" data-open-drawer aria-label="Menú">
@@ -577,7 +577,7 @@ min-height:180px;
       </div>
       <img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
       <div class="header-side">
-        <button class="icon-btn" data-goto="ventas" aria-label="Anterior">
+        <button class="icon-btn" data-goto="Hoja1" aria-label="Anterior">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
         </button>
         <button class="icon-btn" data-goto="finance" aria-label="Siguiente">
@@ -589,10 +589,10 @@ min-height:180px;
       </div>
     </header>
 
-    <div class="section-page" id="franquicias-body">
+    <div class="section-page" id="Hoja2-body">
       <div class="tab-title">
         <p class="eyebrow serif">Overview</p>
-        <h2>Resultados franquicias</h2>
+        <h2>Resultados Hoja2</h2>
       </div>
 
       <div class="obj-card full-tall plain">
@@ -618,7 +618,7 @@ min-height:180px;
       </div>
       <img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
       <div class="header-side">
-        <button class="icon-btn" data-goto="franquicias" aria-label="Anterior">
+        <button class="icon-btn" data-goto="Hoja2" aria-label="Anterior">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
         </button>
         <button class="icon-btn" data-goto="rrhh" aria-label="Siguiente">
@@ -659,10 +659,10 @@ min-height:180px;
 
 <script>
 (function(){
-  var TABS = ["home","ventas","franquicias","finance","rrhh"];
+  var TABS = ["home","Hoja1","Hoja2","finance","rrhh"];
   var FILTERS = {
-    ventas:      { app:"84caef0f-17ac-4d23-9731-4d19af507756", panel:"KhNSfJ", clear:"NbMg" },
-    franquicias: { app:"a030b19c-9fc2-45ba-bfd8-870848882dc8", panel:"HHhxaf", clear:"gZczYD" }
+    Hoja1:      { app:"84caef0f-17ac-4d23-9731-4d19af507756", panel:"KhNSfJ", clear:"NbMg" },
+    Hoja2: { app:"a030b19c-9fc2-45ba-bfd8-870848882dc8", panel:"HHhxaf", clear:"gZczYD" }
   };
   var currentFilterTab = null;
 
