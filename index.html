@@ -814,11 +814,9 @@ qlik-embed{display:block;width:100%;height:100%;}
   function getQlikToken() {
     for (var i = 0; i < sessionStorage.length; i++) {
       var key = sessionStorage.key(i);
-      if (key && key.toLowerCase().indexOf("qlik") !== -1) {
-        try {
-          var val = JSON.parse(sessionStorage.getItem(key));
-          if (val && val.access_token) return val.access_token;
-        } catch(e) {}
+      if (key && key.indexOf("qlik") !== -1 && key.indexOf("access-token") !== -1) {
+        var val = sessionStorage.getItem(key);
+        if (val) return val; // el valor YA es el token, sin envoltorio JSON
       }
     }
     return null;
