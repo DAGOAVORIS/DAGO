@@ -451,83 +451,37 @@
 
     <div class="section-page" id="Hoja1-body">
       <div class="tab-title">
-        <h2>Venta+Cartera</h2>
-        <p class="eyebrow serif">Analytics</p>
+        <h2>ABC Proveedores</h2>
       </div>
 
-      <div class="kpi-row">
-        <div class="kpi-card">
-          <div class="obj-mount">
-            <qlik-embed ui="analytics/chart" app-id="84caef0f-17ac-4d23-9731-4d19af507756" object-id="VcPqVCd"></qlik-embed>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="obj-mount">
-            <qlik-embed ui="analytics/chart" app-id="84caef0f-17ac-4d23-9731-4d19af507756" object-id="pjmBmgg"></qlik-embed>
-          </div>
+      <div class="tab-title">
+        <p class="eyebrow serif">KPI</p>
+      </div>
+      <div class="obj-card full-tall plain">
+        <div class="obj-mount">
+          <qlik-embed ui="classic/chart" app-id="f748f9a1-a57d-478f-855f-26330f1f2123" object-id="PxMxDY"></qlik-embed>
         </div>
       </div>
 
-      <div class="kpi-row">
-        <div class="kpi-card">
-          <div class="obj-mount">
-            <qlik-embed ui="analytics/chart" app-id="84caef0f-17ac-4d23-9731-4d19af507756" object-id="PexF"></qlik-embed>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="obj-mount">
-            <qlik-embed ui="analytics/chart" app-id="84caef0f-17ac-4d23-9731-4d19af507756" object-id="EHmmDP"></qlik-embed>
-          </div>
+      <div class="tab-title">
+        <p class="eyebrow serif">Vs PPTO</p>
+      </div>
+      <div class="obj-card full-tall plain">
+        <div class="obj-mount">
+          <qlik-embed ui="classic/chart" app-id="f748f9a1-a57d-478f-855f-26330f1f2123" object-id="EMjpfL"></qlik-embed>
         </div>
       </div>
-
-      <div class="table-menu">
-        <button class="table-menu-item" data-open-table="table-region-client">
-          <span class="tmi-bar"></span>
-          <span class="tmi-text">
-            <span class="tmi-title serif">Hoja1 por región y cliente</span>
-            <span class="tmi-sub">Detalle comercial</span>
-          </span>
-          <span class="tmi-chevron">&rsaquo;</span>
-        </button>
-        <button class="table-menu-item" data-open-table="table-categories-products">
-          <span class="tmi-bar"></span>
-          <span class="tmi-text">
-            <span class="tmi-title serif">Categorías y productos</span>
-            <span class="tmi-sub">Informe de rendimiento por categoría y producto</span>
-          </span>
-          <span class="tmi-chevron">&rsaquo;</span>
-        </button>
+      
+      <div class="tab-title">
+        <p class="eyebrow serif">Generación Negocio</p>
+      </div>
+      <div class="obj-card full-tall plain">
+        <div class="obj-mount">
+          <qlik-embed ui="analytics/chart" app-id="f748f9a1-a57d-478f-855f-26330f1f2123" object-id="Kphjre"></qlik-embed>
+        </div>
       </div>
     </div>
   </section>
-
-  <!-- Full-screen table overlays: always present with a real, non-zero size
-       (fixed + flex layout) so Qlik never measures a 0x0 hidden container;
-       only visibility toggles when opened/closed. -->
-  <div class="table-overlay" id="table-region-client">
-    <header class="overlay-header">
-      <h3 class="serif">Hoja1 por región y cliente</h3>
-      <button class="collapse-btn-flat" data-close-table aria-label="Cerrar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" width="16" height="16"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-    </header>
-    <div class="obj-mount">
-      <qlik-embed ui="analytics/chart" app-id="84caef0f-17ac-4d23-9731-4d19af507756" object-id="ppXAV"></qlik-embed>
-    </div>
-  </div>
-
-  <div class="table-overlay" id="table-categories-products">
-    <header class="overlay-header">
-      <h3 class="serif">Categorías y productos</h3>
-      <button class="collapse-btn-flat" data-close-table aria-label="Cerrar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" width="16" height="16"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-    </header>
-    <div class="obj-mount">
-      <qlik-embed ui="analytics/chart" app-id="84caef0f-17ac-4d23-9731-4d19af507756" object-id="5c551c5d-e173-41c4-bcb7-873bbf8786de"></qlik-embed>
-    </div>
-  </div>
 
   <!-- ============ PAGE: Hoja2 ============ -->
   <section class="page" id="page-Hoja2">
@@ -629,7 +583,7 @@
 (function(){
   var TABS = ["home","Hoja1","Hoja2","Hoja3","Hoja4"];
   var FILTERS = {
-    Hoja1: { app:"84caef0f-17ac-4d23-9731-4d19af507756", panel:"KhNSfJ", clear:"NbMg" },
+    Hoja1: { app:"f748f9a1-a57d-478f-855f-26330f1f2123", panel:"qEXjSQ", clear:"AktNMR" },
     Hoja2: { app:"45cc875c-2eea-444d-b1e0-6344678f71d6", panel:"pgjZcWq", clear:"zYqVew" }
   };
   var currentFilterTab = null;
