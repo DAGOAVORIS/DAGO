@@ -420,8 +420,8 @@
         <span>Desarrollado por: &nbsp;ruben.afonso@avoristravel.com miguelangel.garciagil@avoristravel.com</span>
       </div>
       <hr class="hr-thin" />
-      <h2 class="serif">Todos tus datos en la palma de la mano</h2>
-      <p>Esta aplicación nace como una solución a las necesidades profesionales de disponer de datos de forma dinamica y centralizada.</p>
+      <h2 class="serif">La información clave, al instante</h2>
+      <p>Esta aplicación nace como una solución a las necesidades profesionales de disponer de datos de forma dinámica y centralizada. Está diseñada bajo los principios de Data Governance, facilitando el seguimiento de los indicadores más relevantes y contribuyendo a una toma de decisiones más ágil, informada y eficiente..</p>
     </article>
   </section>
 
@@ -607,7 +607,7 @@
       </div>
       <div class="obj-card full-tall plain">
         <div class="obj-mount">
-          <qlik-embed ui="analytics/chart" app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" object-id="qUSpfg"></qlik-embed>
+          <qlik-embed ui="classic/chart" app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" object-id="qUSpfg"></qlik-embed>
         </div>
       </div>
 
@@ -623,6 +623,64 @@
     </div>
   </section>
 
+   <!-- ============ PAGE: Hoja5 ============ -->
+  <section class="page" id="page-Hoja5">
+    <header class="app-header">
+      <div class="header-side">
+        <button class="icon-btn" data-open-drawer aria-label="Menú">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+      <img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
+      <div class="header-side">
+        <button class="icon-btn" data-goto="Hoja4" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <button class="icon-btn" data-goto="Hoja6" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="icon-btn" data-open-filter aria-label="Filtros">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="section-page" id="Hoja5-body">
+      <div class="tab-title">
+        <h2>Jira</h2>
+      </div>
+
+      <div class="tab-title">
+        <p class="eyebrow serif">Geolocalización (tabla)</p>
+      </div>
+      <div class="obj-card full-tall plain">
+        <div class="obj-mount">
+          <qlik-embed ui="analytics/chart" app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" object-id="NPmNnC"></qlik-embed>
+        </div>
+      </div>
+
+      <div class="tab-title">
+        <p class="eyebrow serif">Geolocalización (mapa) </p>
+      </div>
+      <div class="obj-card full-tall plain">
+        <div class="obj-mount">
+          <qlik-embed ui="classic/chart" app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" object-id="qUSpfg"></qlik-embed>
+        </div>
+      </div>
+
+      <div class="tab-title">
+        <p class="eyebrow serif">Listado empleados</p>
+      </div>
+      <div class="obj-card full-tall plain">
+        <div class="obj-mount">
+          <qlik-embed ui="analytics/chart" app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" object-id="WLZPnA"></qlik-embed>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  
 </div>
 
 <script>
@@ -631,7 +689,8 @@
   var FILTERS = {
     Hoja1: { app:"f748f9a1-a57d-478f-855f-26330f1f2123", panel:"qEXjSQ", clear:"AktNMR" },
     Hoja2: { app:"45cc875c-2eea-444d-b1e0-6344678f71d6", panel:"pgjZcWq", clear:"zYqVew" },
-    Hoja3: { app:"20c49edc-8fed-4cc5-b73c-e40db9f6e30c", panel:"FfscDt", clear:"gPCaam" }
+    Hoja3: { app:"20c49edc-8fed-4cc5-b73c-e40db9f6e30c", panel:"FfscDt", clear:"gPCaam" },
+    Hoja4: { app:"1088df3b-29d7-48ec-97ba-1cdbe659d5e6", panel:"jZSwYff", clear:"PcPPcZ" }
   };
   var currentFilterTab = null;
 
