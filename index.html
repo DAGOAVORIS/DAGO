@@ -543,12 +543,25 @@
         <button class="icon-btn" data-goto="Hoja4" aria-label="Siguiente">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
         </button>
+        <button class="icon-btn" data-open-filter aria-label="Filtros">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+        </button>
       </div>
     </header>
-    <div class="placeholder-page">
-      <div class="badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#16262E" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg></div>
-      <h2 class="serif">Hoja3</h2>
-      <p>El contenido analítico de esta pestaña se incorporará próximamente.</p>
+
+    <div class="section-page" id="Hoja3-body">
+      <div class="tab-title">
+        <h2>Ctool</h2>
+      </div>
+
+      <div class="tab-title">
+        <p class="eyebrow serif">Conversión de oportunidades</p>
+      </div>
+      <div class="obj-card full-tall plain">
+        <div class="obj-mount">
+          <qlik-embed ui="analytics/chart" app-id="20c49edc-8fed-4cc5-b73c-e40db9f6e30c" object-id="jEEgQKK"></qlik-embed>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -581,7 +594,8 @@
   var TABS = ["home","Hoja1","Hoja2","Hoja3","Hoja4"];
   var FILTERS = {
     Hoja1: { app:"f748f9a1-a57d-478f-855f-26330f1f2123", panel:"qEXjSQ", clear:"AktNMR" },
-    Hoja2: { app:"45cc875c-2eea-444d-b1e0-6344678f71d6", panel:"pgjZcWq", clear:"zYqVew" }
+    Hoja2: { app:"45cc875c-2eea-444d-b1e0-6344678f71d6", panel:"pgjZcWq", clear:"zYqVew" },
+    Hoja3: { app:"20c49edc-8fed-4cc5-b73c-e40db9f6e30c", panel:"FfscDt", clear:"gPCaam" }
   };
   var currentFilterTab = null;
 
