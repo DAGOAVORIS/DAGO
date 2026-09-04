@@ -103,6 +103,18 @@ qlik-embed{display:block;width:100%;height:100%;}
   padding:calc(24px + var(--safe-t)) 22px 24px;
   display:flex;flex-direction:column;
 }
+
+.drawer nav{
+display:flex;
+flex-direction:column;
+gap:4px;
+ 
+flex:1;
+overflow-y:auto;
+min-height:0;
+padding-right:4px;
+}
+  
 .drawer.open{transform:translateX(0);}
 .drawer-close{align-self:flex-end;color:#fff;margin-bottom:20px;}
 .drawer nav{display:flex;flex-direction:column;gap:4px;}
