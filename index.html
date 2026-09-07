@@ -719,7 +719,8 @@ var HOJAS_ORDEN = ["Hoja1","Hoja2","Hoja3","Hoja4","Hoja5","Hoja6","Hoja7"];
 var queue = [];
 var activeCount = 0;
 var loadedMounts = new WeakSet();
-
+var precargaIniciada = false;
+    
 function mountsOfHoja(hojaId){
 var root = document.getElementById("page-" + hojaId);
 if(!root) return [];
@@ -783,26 +784,22 @@ document.addEventListener("click", function(e){
     if (!el) return;
     var destino = el.getAttribute("data-goto");
     if (HOJAS_ORDEN.indexOf(destino) !== -1) {
-        // Descarta precargas pendientes de otras hojas
         queue = [];
-        // Prioridad absoluta a la hoja seleccionada
         encolarHoja(destino, true);
-        // después del destino, precargar el resto
-        HOJAS_ORDEN.forEach(function(h){
-        if(h !== destino){
-        encolarHoja(h, false);
+        if (!precargaIniciada) {
+            precargaIniciada = true;
+            setTimeout(function(){
+                HOJAS_ORDEN.forEach(function(h){
+                    if (h !== destino) {
+                        encolarHoja(h, false);
+                    }
+                });
+            }, 1000);
         }
-        });
     }
 }, true);
-
-window.addEventListener("DOMContentLoaded", function(){
-setTimeout(iniciarCargaSegundoPlano, 4000);
-});
-
-}, true);
-});
 })();
+
 </script>
 <!-- ============ control de acceso dinámico a pestañas ============ -->
 <script>
