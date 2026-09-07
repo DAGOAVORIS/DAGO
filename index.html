@@ -796,9 +796,31 @@ document.addEventListener("click", function(e){
     }
 }, true);
 
-window.addEventListener("DOMContentLoaded", function(){
-// pequeño retraso para no competir con la carga inicial de home
-setTimeout(iniciarCargaSegundoPlano, 5000);
+var precargaIniciada = false;
+document.addEventListener("click", function(e){
+    var el = e.target.closest ? e.target.closest("[data-goto]") : null;
+    if (!el) return;
+    var destino = el.getAttribute("data-goto");
+    if (HOJAS_ORDEN.indexOf(destino) !== -1) {
+        if (!precargaIniciada) {
+            precargaIniciada = true;
+            // primero la hoja elegida
+            encolarHoja(destino, true);
+            // después todo lo demás
+            setTimeout(function(){
+                HOJAS_ORDEN.forEach(function(h){
+                    if (h !== destino) {
+                        encolarHoja(h, false);
+                    }
+                });
+            }, 1000);
+        } else {
+            queue = [];
+            encolarHoja(destino, true);
+        }
+    }
+
+}, true);
 });
 })();
 </script>
