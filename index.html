@@ -769,7 +769,7 @@ procesarCola();
 }
 embed.addEventListener("load", onDone, { once: true });
 // Por si ese ui= concreto no dispara 'load', no bloqueamos la cola indefinidamente.
-setTimeout(onDone, 3000);
+setTimeout(onDone, 2500);
 }
 }
 
@@ -794,7 +794,7 @@ document.addEventListener("click", function(e){
                         encolarHoja(h, false);
                     }
                 });
-            }, 1000);
+            }, 250);
         }
     }
 }, true);
