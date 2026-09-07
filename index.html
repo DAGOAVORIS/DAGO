@@ -718,7 +718,7 @@ goto("home");
 <script>
 (function(){
 // Cuántos embeds se pueden estar montando a la vez. 1 = lo más suave para el rendimiento.
-var CONCURRENCY = 9;
+var CONCURRENCY = 5;
 // Orden en que se cargarán en segundo plano las hojas que aún no se han visitado.
 var HOJAS_ORDEN = ["Hoja1","Hoja2","Hoja3","Hoja4","Hoja5","Hoja6","Hoja7"];
 
@@ -785,12 +785,15 @@ HOJAS_ORDEN.forEach(function(h){ encolarHoja(h, false); });
 // Cuando el usuario pulsa cualquier botón que lleve a una hoja (menú, flechas...),
 // esa hoja pasa a la cabeza de la cola con prioridad máxima.
 document.addEventListener("click", function(e){
-var el = e.target.closest ? e.target.closest("[data-goto]") : null;
-if (!el) return;
-var destino = el.getAttribute("data-goto");
-if (HOJAS_ORDEN.indexOf(destino) !== -1) {
-encolarHoja(destino, true);
-}
+    var el = e.target.closest ? e.target.closest("[data-goto]") : null;
+    if (!el) return;
+    var destino = el.getAttribute("data-goto");
+    if (HOJAS_ORDEN.indexOf(destino) !== -1) {
+        // Descarta precargas pendientes de otras hojas
+        queue = [];
+        // Prioridad absoluta a la hoja seleccionada
+        encolarHoja(destino, true);
+    }
 }, true);
 
 window.addEventListener("DOMContentLoaded", function(){
