@@ -712,7 +712,7 @@ goto("home");
 <script>
 (function(){
 // Cuántos embeds se pueden estar montando a la vez. 1 = lo más suave para el rendimiento.
-var CONCURRENCY = 8;
+var CONCURRENCY = 5;
 // Orden en que se cargarán en segundo plano las hojas que aún no se han visitado.
 var HOJAS_ORDEN = ["Hoja1","Hoja2","Hoja3","Hoja4","Hoja5","Hoja6","Hoja7"];
 
@@ -768,7 +768,7 @@ procesarCola();
 }
 embed.addEventListener("load", onDone, { once: true });
 // Por si ese ui= concreto no dispara 'load', no bloqueamos la cola indefinidamente.
-setTimeout(onDone, 3000);
+setTimeout(onDone, 1000);
 }
 }
 
@@ -798,7 +798,7 @@ document.addEventListener("click", function(e){
 
 window.addEventListener("DOMContentLoaded", function(){
 // pequeño retraso para no competir con la carga inicial de home
-setTimeout(iniciarCargaSegundoPlano, 2000);
+setTimeout(iniciarCargaSegundoPlano, 5000);
 });
 })();
 </script>
