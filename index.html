@@ -26,7 +26,6 @@ data-auto-redirect="true"
 --ink:#152229;
 --teal:#16262E;
 --gold:#F0C230;
---gold-deep:#C99A12;
 --line: rgba(21,34,41,0.12);
 --muted:#5B6A70;
 --header-h: 56px;
@@ -642,7 +641,7 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 </div>
 </section>
 </div>
-<!-- ============ SCRIPT ORIGINAL: navegación, drawer, filtros ============ -->
+<!-- ============ navegación, drawer, filtros ============ -->
 <script>
 (function(){
 var TABS = ["home","Hoja1","Hoja2","Hoja3","Hoja4","Hoja5","Hoja6","Hoja7"];
@@ -711,19 +710,6 @@ function closeFilter(){ filterDrawer.classList.remove("open"); filterScrim.class
 document.querySelectorAll("[data-open-filter]").forEach(function(b){ b.addEventListener("click", openFilter); });
 document.getElementById("filterClose").addEventListener("click", closeFilter);
 filterScrim.addEventListener("click", closeFilter);
-// ---- Full-screen table overlays ----
-document.querySelectorAll("[data-open-table]").forEach(function(btn){
-btn.addEventListener("click", function(){
-var overlay = document.getElementById(btn.getAttribute("data-open-table"));
-if(overlay) overlay.classList.add("is-open");
-});
-});
-document.querySelectorAll("[data-close-table]").forEach(function(btn){
-btn.addEventListener("click", function(){
-var overlay = btn.closest(".table-overlay");
-if(overlay) overlay.classList.remove("is-open");
-});
-});
 // ---- Initial state ----
 goto("home");
 })();
@@ -788,7 +774,7 @@ procesarCola();
 }
 embed.addEventListener("load", onDone, { once: true });
 // Por si ese ui= concreto no dispara 'load', no bloqueamos la cola indefinidamente.
-setTimeout(onDone, 2500);
+setTimeout(onDone, 2000);
 }
 }
 
@@ -824,7 +810,7 @@ var APP_POR_HOJA = {
 "Hoja4": "1088df3b-29d7-48ec-97ba-1cdbe659d5e6", // RRHH
 "Hoja5": "317d5e46-b448-4dd4-8dab-95e072ad1cb8", // Jira
 "Hoja6": "4a723848-9032-4dd2-89a8-f67230cd6fcf", // Imserso TO
-"Hoja7": "317d5e46-b448-4dd4-8dab-95e072ad1cb8" // Imserso TA
+"Hoja7": "b47940e4-8412-47b5-986a-ff0beaa208c4" // Imserso TA
 };
 var accesibles = null; // se rellena tras consultar Qlik; null = aún no se sabe
 function getQlikToken() {
