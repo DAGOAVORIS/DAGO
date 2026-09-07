@@ -787,6 +787,12 @@ document.addEventListener("click", function(e){
         queue = [];
         // Prioridad absoluta a la hoja seleccionada
         encolarHoja(destino, true);
+        // después del destino, precargar el resto
+        HOJAS_ORDEN.forEach(function(h){
+        if(h !== destino){
+        encolarHoja(h, false);
+        }
+        });
     }
 }, true);
 
