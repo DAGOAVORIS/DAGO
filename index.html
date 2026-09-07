@@ -300,12 +300,6 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 <button data-goto="Hoja5">Jira</button>
 <button data-goto="Hoja6">Imserso TO</button>
 <button data-goto="Hoja7">Imserso TA</button>
-<button data-goto="Hoja6">Imserso TO2</button>
-<button data-goto="Hoja7">Imserso TA2</button>
-<button data-goto="Hoja6">Imserso TO3</button>
-<button data-goto="Hoja7">Imserso TA3</button>
-<button data-goto="Hoja6">Imserso TO4</button>
-<button data-goto="Hoja7">Imserso TA4</button>
 </nav>
 <div class="drawer-foot">Avoris · Data Governance</div>
 </aside>
@@ -774,7 +768,7 @@ procesarCola();
 }
 embed.addEventListener("load", onDone, { once: true });
 // Por si ese ui= concreto no dispara 'load', no bloqueamos la cola indefinidamente.
-setTimeout(onDone, 2000);
+setTimeout(onDone, 3000);
 }
 }
 
@@ -798,7 +792,7 @@ document.addEventListener("click", function(e){
 
 window.addEventListener("DOMContentLoaded", function(){
 // pequeño retraso para no competir con la carga inicial de home
-setTimeout(iniciarCargaSegundoPlano, 300);
+setTimeout(iniciarCargaSegundoPlano, 2000);
 });
 })();
 </script>
