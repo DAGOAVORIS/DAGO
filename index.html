@@ -214,18 +214,6 @@ width:100%;
 height:100%;
 display:block;
 }
-.kpi-row{
-display:flex;gap:5px;padding:10px 5px 16px;
-}
-.kpi-card{
-flex:1 1 0;
-min-width:190px;
-background:none;
-border:none;
-padding:0;
-position:relative;
-min-height:150px;
-}
 .obj-card{
 background:var(--white);
 border-radius:14px;
@@ -794,7 +782,7 @@ goto("home");
 <script>
 (function(){
 // Cuántos embeds se pueden estar montando a la vez. 1 = lo más suave para el rendimiento.
-var CONCURRENCY = 4;
+var CONCURRENCY = 2;
 // Orden en que se cargarán en segundo plano las hojas que aún no se han visitado.
 var HOJAS_ORDEN = ["Hoja1","Hoja2","Hoja3","Hoja4","Hoja5","Hoja6","Hoja7"];
 
@@ -850,7 +838,7 @@ procesarCola();
 }
 embed.addEventListener("load", onDone, { once: true });
 // Por si ese ui= concreto no dispara 'load', no bloqueamos la cola indefinidamente.
-setTimeout(onDone, 6000);
+setTimeout(onDone, 2500);
 }
 }
 
