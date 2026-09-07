@@ -790,11 +790,11 @@ if(overlay) overlay.classList.remove("is-open");
 goto("home");
 })();
 </script>
-<!-- ============ SCRIPT NUEVO: carga en cola de fondo con prioridad para la hoja seleccionada ============ -->
+<!-- ============ carga en cola de fondo con prioridad para la hoja seleccionada ============ -->
 <script>
 (function(){
 // Cuántos embeds se pueden estar montando a la vez. 1 = lo más suave para el rendimiento.
-var CONCURRENCY = 1;
+var CONCURRENCY = 4;
 // Orden en que se cargarán en segundo plano las hojas que aún no se han visitado.
 var HOJAS_ORDEN = ["Hoja1","Hoja2","Hoja3","Hoja4","Hoja5","Hoja6","Hoja7"];
 
@@ -875,7 +875,7 @@ setTimeout(iniciarCargaSegundoPlano, 300);
 });
 })();
 </script>
-<!-- ============ SCRIPT NUEVO: control de acceso dinámico a pestañas ============ -->
+<!-- ============ control de acceso dinámico a pestañas ============ -->
 <script>
 (async function() {
 var ORDEN = ["home", "Hoja1", "Hoja2", "Hoja3", "Hoja4", "Hoja5", "Hoja6", "Hoja7"];
