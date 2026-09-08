@@ -722,6 +722,7 @@ var queue = [];
 var activeCount = 0;
 var loadedMounts = new WeakSet();
 var precargaIniciada = false;
+window.HOJAS_ACCESIBLES = [];
     
 function mountsOfHoja(hojaId){
 var root = document.getElementById("page-" + hojaId);
@@ -778,7 +779,20 @@ setTimeout(onDone, 3000);
 function iniciarCargaSegundoPlano(){
 HOJAS_ORDEN.forEach(function(h){ encolarHoja(h, false); });
 }
-
+function iniciarPrecargaPermitida(hojaActual){
+if (precargaIniciada) return;
+precargaIniciada = true;
+(window.HOJAS_ACCESIBLES || []).forEach(function(h){
+if(h !== hojaActual){
+encolarHoja(h,false);
+}
+});
+console.log(
+"Precargando hojas accesibles:",
+window.HOJAS_ACCESIBLES
+);
+}
+    
 // Cuando el usuario pulsa cualquier botón que lleve a una hoja (menú, flechas...),
 // esa hoja pasa a la cabeza de la cola con prioridad máxima.
 document.addEventListener("click", function(e){
@@ -788,15 +802,10 @@ document.addEventListener("click", function(e){
     if (HOJAS_ORDEN.indexOf(destino) !== -1) {
         queue = [];
         encolarHoja(destino, true);
-        if (!precargaIniciada) {
-            precargaIniciada = true;
-            setTimeout(function(){
-                HOJAS_ORDEN.forEach(function(h){
-                    if (h !== destino) {
-                        encolarHoja(h, false);
-                    }
-                });
-            }, 1000);
+        if (!precargaIniciada){
+        setTimeout(function(){
+        iniciarPrecargaPermitida(destino);
+        }, 1000);
         }
     }
 }, true);
@@ -910,6 +919,7 @@ return { hojaId: hojaId, ok: false };
 });
 var resultados = await Promise.all(checks);
 accesibles = resultados.filter(function(r){ return r.ok; }).map(function(r){ return r.hojaId; });
+window.HOJAS_ACCESIBLES = accesibles.slice();
 resultados.forEach(function(r){
 if (!r.ok) ocultarBotonMenu(r.hojaId);
 });
