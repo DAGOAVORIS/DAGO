@@ -715,7 +715,7 @@ goto("home");
 <script>
 (function(){
 // Cuántos embeds se pueden estar montando a la vez. 1 = lo más suave para el rendimiento.
-var CONCURRENCY = 5;
+var CONCURRENCY = 4;
 // Orden en que se cargarán en segundo plano las hojas que aún no se han visitado.
 var HOJAS_ORDEN = ["Hoja1","Hoja2","Hoja3","Hoja4","Hoja5","Hoja6","Hoja7"];
 
@@ -783,7 +783,7 @@ procesarCola();
 }
 embed.addEventListener("load", onDone, { once: true });
 // Por si ese ui= concreto no dispara 'load', no bloqueamos la cola indefinidamente.
-setTimeout(onDone, 3000);
+setTimeout(onDone, 2500);
 }
 }
 
@@ -948,6 +948,5 @@ await filtrarAccesoPorApp();
 });
 })();
 </script>
-    <!-- ============ audit.jsscript> ============ -->
 </body>
 </html>
