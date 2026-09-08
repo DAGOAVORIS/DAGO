@@ -916,15 +916,12 @@ if (!r.ok) ocultarBotonMenu(r.hojaId);
 actualizarFlechas();
 }
 window.addEventListener("load", async function(){
-    for(let i = 0; i < 20; i++){
-        var token = getQlikToken();
-        if(token){
-            filtrarAccesoPorApp();
-            return;
-        }
-        await new Promise(r => setTimeout(r, 500));
-    }
-    console.error("Token Qlik no disponible");
+while(
+!customElements.get("qlik-embed") ||
+!getQlikToken()
+){
+await new Promise(r => setTimeout(r,500));
+filtrarAccesoPorApp();
 });
 })();
 </script>
