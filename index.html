@@ -662,6 +662,7 @@ closeDrawer();
 closeFilter();
 window.scrollTo(0,0);
 }
+    window.goto = goto;
 document.querySelectorAll("[data-goto]").forEach(function(btn){
 btn.addEventListener("click", function(){ goto(btn.getAttribute("data-goto")); });
 });
@@ -937,5 +938,6 @@ await filtrarAccesoPorApp();
 });
 })();
 </script>
+    audit.jsscript>
 </body>
 </html>
