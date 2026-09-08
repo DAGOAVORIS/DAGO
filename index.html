@@ -747,6 +747,16 @@ return embed;
 function encolarHoja(hojaId, prioridad){
 var pendientes = mountsOfHoja(hojaId).filter(function(m){ return !loadedMounts.has(m); });
 if (!pendientes.length) return;
+    console.log(
+    "📥 Encolando hoja:",
+    hojaId,
+    pendientes.map(function(m){
+    return {
+    app: m.getAttribute("data-app-id"),
+    object: m.getAttribute("data-object-id")
+    };
+    })
+    );
 // Si ya estaban en cola más atrás, los quitamos para no duplicarlos.
 queue = queue.filter(function(m){ return pendientes.indexOf(m) === -1; });
 if (prioridad) {
