@@ -802,11 +802,6 @@ document.addEventListener("click", function(e){
     if (HOJAS_ORDEN.indexOf(destino) !== -1) {
         queue = [];
         encolarHoja(destino, true);
-        if (!precargaIniciada){
-        setTimeout(function(){
-        iniciarPrecargaPermitida(destino);
-        }, 1000);
-        }
     }
 }, true);
 })();
@@ -920,6 +915,12 @@ return { hojaId: hojaId, ok: false };
 var resultados = await Promise.all(checks);
 accesibles = resultados.filter(function(r){ return r.ok; }).map(function(r){ return r.hojaId; });
 window.HOJAS_ACCESIBLES = accesibles.slice();
+    if (!precargaIniciada) {
+    precargaIniciada = true;
+    window.HOJAS_ACCESIBLES.forEach(function(h){
+    encolarHoja(h,false);
+    });
+    }
 resultados.forEach(function(r){
 if (!r.ok) ocultarBotonMenu(r.hojaId);
 });
