@@ -931,7 +931,8 @@ while(
 !getQlikToken()
 ){
 await new Promise(r => setTimeout(r,500));
-filtrarAccesoPorApp();
+}
+await filtrarAccesoPorApp();
 });
 })();
 </script>
