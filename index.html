@@ -779,32 +779,34 @@ setTimeout(onDone, 3000);
 function iniciarCargaSegundoPlano(){
 HOJAS_ORDEN.forEach(function(h){ encolarHoja(h, false); });
 }
-function iniciarPrecargaPermitida(hojaActual){
-if (precargaIniciada) return;
-window.precargaIniciada = true;
-(window.HOJAS_ACCESIBLES || []).forEach(function(h){
-if(h !== hojaActual){
-encolarHoja(h,false);
-}
-});
-console.log(
-"Precargando hojas accesibles:",
-window.HOJAS_ACCESIBLES
-);
-}
+    function iniciarPrecargaPermitida(hojaActual){
+        if (window.precargaIniciada) return;
+        window.precargaIniciada = true;
+        (window.HOJAS_ACCESIBLES || []).forEach(function(h){
+        if(h !== hojaActual){
+        encolarHoja(h,false);
+        }
+        });
+        console.log(
+        "Precargando hojas accesibles:",
+        window.HOJAS_ACCESIBLES
+        );
+    }
     
 // Cuando el usuario pulsa cualquier botón que lleve a una hoja (menú, flechas...),
 // esa hoja pasa a la cabeza de la cola con prioridad máxima.
-document.addEventListener("click", function(e){
+    document.addEventListener("click", function(e){
     var el = e.target.closest ? e.target.closest("[data-goto]") : null;
     if (!el) return;
     var destino = el.getAttribute("data-goto");
     if (HOJAS_ORDEN.indexOf(destino) !== -1) {
-        queue = [];
-        encolarHoja(destino, true);
+    queue = [];
+    encolarHoja(destino, true);
     }
-}, true);
-})();
+    }, true);
+    // EXPONER LA FUNCIÓN AL OTRO SCRIPT
+    window.iniciarPrecargaPermitida = iniciarPrecargaPermitida;
+    })();
 
 </script>
 <!-- ============ control de acceso dinámico a pestañas ============ -->
@@ -914,12 +916,9 @@ return { hojaId: hojaId, ok: false };
 });
 var resultados = await Promise.all(checks);
 accesibles = resultados.filter(function(r){ return r.ok; }).map(function(r){ return r.hojaId; });
-window.HOJAS_ACCESIBLES = accesibles.slice();
-    if (!window.precargaIniciada) {
-    window.precargaIniciada = true;
-    window.HOJAS_ACCESIBLES.forEach(function(h){
-    encolarHoja(h,false);
-    });
+    window.HOJAS_ACCESIBLES = accesibles.slice();
+    if (window.iniciarPrecargaPermitida) {
+    window.iniciarPrecargaPermitida(null);
     }
 resultados.forEach(function(r){
 if (!r.ok) ocultarBotonMenu(r.hojaId);
