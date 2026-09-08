@@ -283,9 +283,6 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 @media (orientation: landscape){
 #app{max-width:min(1100px, 100%);}
 } 
-.obj-card{
-outline:2px solid red !important;
-}
 </style>
 </head>
 <body>
@@ -717,7 +714,7 @@ goto("home");
 <script>
 (function(){
 // Cuántos embeds se pueden estar montando a la vez. 1 = lo más suave para el rendimiento.
-var CONCURRENCY = 6;
+var CONCURRENCY = 5;
 // Orden en que se cargarán en segundo plano las hojas que aún no se han visitado.
 var HOJAS_ORDEN = ["Hoja1","Hoja2","Hoja3","Hoja4","Hoja5","Hoja6","Hoja7"];
 
