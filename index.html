@@ -776,22 +776,19 @@ setTimeout(onDone, 3000);
 }
 }
 
-function iniciarCargaSegundoPlano(){
-HOJAS_ORDEN.forEach(function(h){ encolarHoja(h, false); });
-}
-    function iniciarPrecargaPermitida(hojaActual){
-        if (window.precargaIniciada) return;
-        window.precargaIniciada = true;
-        (window.HOJAS_ACCESIBLES || []).forEach(function(h){
-        if(h !== hojaActual){
-        encolarHoja(h,false);
-        }
-        });
-        console.log(
-        "Precargando hojas accesibles:",
-        window.HOJAS_ACCESIBLES
-        );
+function iniciarPrecargaPermitida(hojaActual){
+    if (window.precargaIniciada) return;
+    window.precargaIniciada = true;
+    (window.HOJAS_ACCESIBLES || []).forEach(function(h){
+    if(h !== hojaActual){
+    encolarHoja(h,false);
     }
+    });
+    console.log(
+    "Precargando hojas accesibles:",
+    window.HOJAS_ACCESIBLES
+    );
+}
     
 // Cuando el usuario pulsa cualquier botón que lleve a una hoja (menú, flechas...),
 // esa hoja pasa a la cabeza de la cola con prioridad máxima.
@@ -917,6 +914,10 @@ return { hojaId: hojaId, ok: false };
 var resultados = await Promise.all(checks);
 accesibles = resultados.filter(function(r){ return r.ok; }).map(function(r){ return r.hojaId; });
     window.HOJAS_ACCESIBLES = accesibles.slice();
+        console.log(
+        "✅ Hojas permitidas:",
+        window.HOJAS_ACCESIBLES
+        );
     if (window.iniciarPrecargaPermitida) {
     window.iniciarPrecargaPermitida(null);
     }
