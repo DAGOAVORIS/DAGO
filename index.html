@@ -873,7 +873,6 @@ function iniciarPrecargaPermitida(hojaActual){
     if (!el) return;
     var destino = el.getAttribute("data-goto");
     if (HOJAS_ORDEN.indexOf(destino) !== -1) {
-    queue = [];
     encolarHoja(destino, true);
     }
     }, true);
