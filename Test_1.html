@@ -64,11 +64,10 @@ padding-top:var(--safe-t);
 display:flex;
 align-items:center;
 justify-content:space-between;
-background:#FFFFFF;
-border-bottom:1px solid #ECECEC;
+background:var(--white);
+border-bottom:1px solid var(--line);
 padding-left:14px;
 padding-right:10px;
-box-shadow:0 2px 8px rgba(0,0,0,.04);
 }
 .header-side{display:flex;align-items:center;gap:6px;}
 .icon-btn{
@@ -115,17 +114,12 @@ font-family:'Fraunces',serif;font-size:16px;color:#fff;
 border-bottom:1px solid rgba(255,255,255,0.12);
 border-radius:10px;
 display:flex;align-items:center;justify-content:space-between;
-border:none;
-7
-margin-bottom:6px;
-8
-background:rgba(255,255,255,.04);
 }
 .drawer nav button.active{
-background:#FFDE21;
-13
-color:#152229;
-14
+color:var(--teal);
+background:var(--gold);
+border-bottom-color:transparent;
+font-weight:600;
 }
 .drawer-foot{margin-top:auto;font-size:12px;color:rgba(255,255,255,0.55);padding-top:16px;}
 /* ---------- Tabs / pages ---------- */
@@ -209,64 +203,11 @@ min-height:calc(100vh - var(--header-h));
 margin:0 0 2px;font-size:13px;color:var(--muted);
 text-transform:uppercase;letter-spacing:.08em;font-weight:500;
 }
-.tab-title h2{padding:20px 16px 10px;
-3
-}
-4
- 
-5
-.tab-title h2{
-6
-margin:0;
-7
-font-size:28px;
-8
-font-weight:700;
-9
-line-height:1.15;
-10
-color:#152229;
-11
-}
-12
- 
-13
-.tab-title .eyebrow{
-14
-font-size:12px;
-15
-font-weight:700;
-16
-letter-spacing:.12em;
-17
-color:#68757D;
-18
-text-transform:uppercase;
-19
-}
-20
-``
+.tab-title h2{margin:0;font-size:23px;font-weight:700;color:var(--ink);}
 .update-date{
-margin:0 12px 14px;
-3
-height:38px;
-4
-background:#FFDE21;
-5
-border-radius:12px;
-6
-padding:0 12px;
-7
-display:flex;
-8
-align-items:center;
-9
-font-weight:600;
-10
-box-shadow:var(--shadow);
-11
+margin-top:4px;
+height:32px;
 overflow:hidden;
-12
 }
 .update-date qlik-embed{
 width:100%;
@@ -282,18 +223,7 @@ margin:0 16px 16px;
 padding:6px;
 }
 .obj-card.plain{
-background:#FFFFFF;
-3
-border:1px solid #E9ECEF;
-4
-border-radius:16px;
-5
-padding:12px;
-6
-box-shadow:var(--shadow);
-7
-margin:0 12px 16px;
-8
+background:none;border:none;border-radius:0;padding:0;
 }
 .obj-card.half{
 width:calc(50% - 22px);
@@ -301,7 +231,7 @@ display:inline-block;
 vertical-align:top;
 }
 .obj-card.full-tall{
-margin:0 12px 20px;
+margin:0 16px 16px;
 height:50vh;
 min-height:420px;
 }
@@ -309,7 +239,7 @@ min-height:420px;
 .obj-card.full-tall .obj-mount{overflow:auto;}
 .obj-card.split-wrap{white-space:nowrap;margin:0 16px 16px;padding:0;background:none;border:none;}
 .obj-mount{
-width:100%;height:100%;min-height:190px;border-radius:12px;overflow:hidden;background:#FFFFFF;
+width:100%;height:100%;min-height:190px;border-radius:10px;overflow:hidden;
 }
 .kpi-card .obj-mount{min-height:138px;}
 .obj-card.half .obj-mount{min-height:260px;}
@@ -448,8 +378,7 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 <div class="section-page" id="Hoja1-body">
 <div class="update-date" data-ui="analytics/chart" data-app-id="f748f9a1-a57d-478f-855f-26330f1f2123" data-object-id="QqBSeX"></div>
 <div class="tab-title">
-<p class="eyebrow">Dashboard Ejecutivo</p>
-<h2>Venta + Cartera</h2>
+<h2>Venta + Cartera (TA-Digital-Geotravel)</h2>
 </div>
 <div class="tab-title">
     <p class="eyebrow serif">KPI</p>
@@ -1093,67 +1022,3 @@ await filtrarAccesoPorApp();
 </script>
 </body>
 </html>
-
-.section-page{
-2
-background:#F5F6F8;
-3
-padding-bottom:24px;
-4
-}
-5
- 
-6
-.obj-card{
-7
-background:#FFFFFF;
-8
-border-radius:16px;
-9
-border:none;
-10
-box-shadow:0 4px 12px rgba(0,0,0,.06);
-11
-}
-12
- 
-13
-.tab-title h2{
-14
-font-size:28px;
-15
-font-weight:700;
-16
-}
-17
- 
-18
-.tab-title .eyebrow{
-19
-color:#68757D;
-20
-font-size:12px;
-21
-font-weight:700;
-22
-letter-spacing:.12em;
-23
-text-transform:uppercase;
-24
-}
-25
- 
-26
-.update-date{
-27
-background:#FFDE21;
-28
-border-radius:12px;
-29
-margin:12px;
-30
-padding:8px 12px;
-31
-box-shadow:0 3px 8px rgba(0,0,0,.05);
-32
-}
