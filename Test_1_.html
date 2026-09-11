@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>DaGo | Avoris</title>
+<!-- Qlik Embed Web Components — OAuth2 -->
+<script
+crossorigin="anonymous"
+type="application/javascript"
+src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components"
+data-host="https://avoristravel.eu.qlikcloud.com"
+data-client-id="01a061f9bd8dcbfdee90252b6ea3e9d5"
+data-redirect-uri="https://dagoavoris.github.io/DAGO/oauth-callback.html"
+data-access-token-storage="session"
+data-auth-type="Oauth2"
+data-auto-redirect="true"
+></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--cream:#F3F5F7;
+--white:#FFFFFF;
+--ink:#14212A;
+--teal:#3f3e3e;
+--gold:#FFDE21;
+
+--line:rgba(21,34,41,.08);
+--muted:#64707A;
+
+--header-h:48px;
+
+--safe-t:env(safe-area-inset-top,0px);
+--safe-b:env(safe-area-inset-bottom,0px);
+
+--shadow:
+0 8px 30px rgba(0,0,0,.08);
+
+--shadow-hover:
+0 12px 40px rgba(0,0,0,.12);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+
+body{
+background:
+linear-gradient(
+180deg,
+#f7f8fa 0%,
+#eef2f5 100%
+);
+
+font-family:'Inter', sans-serif;
+color:var(--ink);
+
+-webkit-font-smoothing:antialiased;
+overflow-x:hidden;
+}
+
+
+
+
+
+
+h1,h2,h3,.serif{font-family:'Fraunces', Georgia, serif;}
+button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit;}
+img{max-width:100%;display:block;}
+qlik-embed{display:block;width:100%;height:100%;}
+#app{
+max-width:640px;
+
+margin:0 auto;
+
+background:#ffffff;
+
+min-height:100vh;
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.10);
+
+border-left:1px solid rgba(255,255,255,.5);
+border-right:1px solid rgba(255,255,255,.5);
+}
+/* ---------- Header ---------- */
+.app-header{
+position:sticky;
+top:0;
+z-index:40;
+height:calc(var(--header-h) + var(--safe-t));
+padding-top:var(--safe-t);
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:var(--white);
+border-bottom:1px solid var(--line);
+padding-left:14px;
+padding-right:10px;
+}
+.header-side{display:flex;align-items:center;gap:6px;}
+.icon-btn{
+width:38px;height:38px;
+display:flex;align-items:center;justify-content:center;
+border-radius:50%;
+color:var(--ink);
+transition:background .15s ease;
+}
+.icon-btn:active{background:rgba(21,34,41,0.08);}
+.header-logo{height:20px;}
+.icon-btn svg{width:20px;height:20px;}
+/* ---------- Drawer nav ---------- */
+.drawer-scrim{
+position:fixed;inset:0;background:rgba(10,16,20,0.45);
+opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:80;
+}
+.drawer-scrim.open{opacity:1;pointer-events:auto;}
+.drawer{
+position:fixed;top:0;left:0;bottom:0;
+width:78%;max-width:320px;
+background:var(--teal);
+color:#fff;
+z-index:90;
+transform:translateX(-100%);
+transition:transform .3s cubic-bezier(.4,0,.2,1);
+padding:calc(24px + var(--safe-t)) 22px 24px;
+display:flex;flex-direction:column;
+}
+.drawer nav{
+display:flex;
+flex-direction:column;
+gap:4px;
+flex:1;
+overflow-y:auto;
+min-height:0;
+padding-right:4px;
+}
+.drawer.open{transform:translateX(0);}
+.user-welcome{
+    padding:0 12px 18px 12px;
+    margin-bottom:16px;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+}
+
+.user-welcome .saludo{
+    display:block;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:rgba(255,255,255,0.55);
+}
+
+.user-welcome .nombre{
+    display:block;
+    margin-top:4px;
+    font-family:'Fraunces',serif;
+    font-size:18px;
+    font-weight:600;
+    color:#FFDE21;
+    line-height:1.2;
+}
+.drawer nav button{
+text-align:left;padding:10px 12px;
+font-family:'Fraunces',serif;font-size:16px;color:#fff;
+border-bottom:1px solid rgba(255,255,255,0.12);
+border-radius:10px;
+display:flex;align-items:center;justify-content:space-between;
+}
+.drawer nav button.active{
+color:var(--teal);
+background:var(--gold);
+border-bottom-color:transparent;
+font-weight:600;
+}
+.drawer-foot{margin-top:auto;font-size:12px;color:rgba(255,255,255,0.55);padding-top:16px;}
+/* ---------- Tabs / pages ---------- */
+.page{
+visibility:hidden;
+position:absolute;
+top:0;left:0;right:0;
+z-index:0;
+}
+.page.active{
+visibility:visible;
+position:relative;
+z-index:1;
+}
+/* ---------- HOME ---------- */
+
+.hero{
+position:relative;
+
+height:38vh;
+min-height:260px;
+
+overflow:hidden;
+background:var(--teal);
+}
+
+
+.hero video{
+position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.hero::after{
+content:"";
+
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+180deg,
+rgba(0,0,0,0.10) 0%,
+rgba(0,0,0,0.15) 40%,
+rgba(0,0,0,0.70) 100%
+);
+}
+.hero-content{
+position:absolute;left:0;right:0;bottom:0;
+padding:0 22px 18px;
+color:#fff;z-index:2;
+}
+.hero-kicker{
+font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+color:var(--gold);font-weight:600;margin:0;
+}
+.hero-title{
+font-size:22px;line-height:1.18;font-weight:500;margin:4px 0 0;
+max-width:340px;
+}
+.home-feature-img{width:100%;display:block;}
+.home-photo-title{
+margin:22px 22px 14px;
+font-size:26px;line-height:1.22;font-weight:500;color:var(--ink);
+}
+.home-article{
+padding:26px 22px 50px;
+}
+.home-article .eyebrow{
+font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+margin:0 0 8px;
+}
+.home-article h2{
+font-size:26px;line-height:1.22;font-weight:500;margin:0 0 14px;color:var(--ink);
+}
+.byline{
+display:flex;align-items:center;gap:8px;margin-bottom:16px;
+}
+.byline .dot{
+width:22px;height:22px;border-radius:50%;background:var(--gold);
+display:flex;align-items:center;justify-content:center;flex:none;
+}
+.byline .dot::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--teal);}
+.byline span{font-size:13px;color:var(--muted);}
+.home-article p{
+font-size:15.5px;line-height:1.65;color:#33424a;margin:0;
+}
+.hr-thin{border:none;border-top:1px solid var(--line);margin:0 0 18px;}
+/* ---------- Section pages ---------- */
+.section-page{
+background:var(--cream);
+min-height:calc(100vh - var(--header-h));
+}
+.section-page .white-zone{background:var(--white);}
+.section-page .pad{padding:16px;}
+.tab-title{padding:18px 16px 6px;}
+.tab-title .eyebrow{
+margin:0 0 2px;font-size:13px;color:var(--muted);
+text-transform:uppercase;letter-spacing:.08em;font-weight:500;
+}
+.tab-title h2{margin:0;font-size:23px;font-weight:700;color:var(--ink);}
+
+.update-date{
+margin:12px 16px;
+
+height:36px;
+
+background:#3f3e3e;
+
+border-radius:999px;
+
+padding:0 14px;
+
+display:flex;
+align-items:center;
+
+font-weight:700;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.08);
+}
+
+.update-date qlik-embed{
+width:100%;
+height:100%;
+display:block;
+}
+.obj-card{
+background:var(--white);
+border-radius:14px;
+border:1px solid var(--line);
+position:relative;
+margin:0 16px 16px;
+padding:6px;
+}
+.obj-card.plain{
+background:#FFFFFF;
+border:1px solid #E9ECEF;
+border-radius:16px;
+padding:12px;
+box-shadow:var(--shadow);
+margin:0 12px 16px;
+}
+.obj-card.half{
+width:calc(50% - 22px);
+display:inline-block;
+vertical-align:top;
+}
+.obj-card.full-tall{
+margin:0 16px 16px;
+height:50vh;
+min-height:420px;
+}
+.obj-card.full-tall.plain{padding:6px 10px;}
+.obj-card.full-tall .obj-mount{overflow:auto;}
+.obj-card.split-wrap{white-space:nowrap;margin:0 16px 16px;padding:0;background:none;border:none;}
+.obj-mount{
+width:100%;height:100%;min-height:190px;border-radius:10px;overflow:hidden;
+}
+.kpi-card .obj-mount{min-height:138px;}
+.obj-card.half .obj-mount{min-height:260px;}
+.obj-card.full-tall .obj-mount{min-height:100%;height:100%;}
+
+/* ---------- Filter drawer ---------- */
+.filter-scrim{
+position:fixed;inset:0;background:rgba(10,16,20,0.45);
+opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:80;
+}
+.filter-scrim.open{opacity:1;pointer-events:auto;}
+.filter-drawer{
+position:fixed;top:0;right:0;bottom:0;
+width:84%;max-width:340px;
+background:#fff;z-index:95;
+transform:translateX(100%);
+transition:transform .3s cubic-bezier(.4,0,.2,1);
+display:flex;flex-direction:column;
+padding:calc(18px + var(--safe-t)) 16px 20px;
+}
+.filter-drawer.open{transform:translateX(0);}
+.filter-drawer-head{
+display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;
+}
+.filter-drawer-head h3{margin:0;font-size:18px;font-weight:500;}
+.filter-mount-wrap{flex:1;overflow-y:auto;border-radius:10px;min-height:200px;}
+.clear-filters-mount{margin-top:14px;height:52px;border-radius:10px;overflow:hidden;}
+/* ---------- Placeholder tabs ---------- */
+.placeholder-page{
+min-height:70vh;display:flex;align-items:center;justify-content:center;
+flex-direction:column;gap:10px;text-align:center;padding:40px 24px;background:var(--cream);
+}
+.placeholder-page .badge{
+width:52px;height:52px;border-radius:50%;background:var(--gold);
+display:flex;align-items:center;justify-content:center;margin-bottom:6px;
+}
+.placeholder-page h2{margin:0;font-size:22px;font-weight:500;}
+.placeholder-page p{margin:0;color:var(--muted);font-size:14px;max-width:280px;}
+@media (min-width:561px){
+#app{border-left:1px solid var(--line);border-right:1px solid var(--line);}
+}
+@media (orientation: landscape){
+#app{max-width:min(1100px, 100%);}
+} 
+</style>
+</head>
+<body>
+<div id="app">
+<!-- ============ DRAWER NAV ============ -->
+<div class="drawer-scrim" id="drawerScrim"></div>
+
+<aside class="drawer" id="drawer">
+
+<button class="drawer-close icon-btn" id="drawerClose" aria-label="Cerrar menú">
+...
+</button>
+
+<div id="userWelcome" class="user-welcome">
+    <span class="saludo">Bienvenido</span>
+    <span class="nombre">Cargando...</span>
+</div>
+
+<nav>
+
+<button data-goto="home">Intro</button>
+<button data-goto="Hoja1">Venta+Cartera <br>(TA-Digital-Geotravel) </button>
+<button data-goto="Hoja2">ABC Proveedores <br>(TA-Digital-Geotravel)</button>
+<button data-goto="Hoja3">Ctool <br>(TA-Digital-Geotravel)</button>
+<button data-goto="Hoja4">RRHH</button>
+<button data-goto="Hoja5">Jira</button>
+<button data-goto="Hoja6">Imserso TO</button>
+<button data-goto="Hoja7">Imserso TA</button>
+<button data-goto="Hoja8">Welcometickets</button>
+</nav>
+<div class="drawer-foot">Avoris · Data Governance</div>
+</aside>
+<!-- ============ FILTER DRAWER (shared) ============ -->
+<div class="filter-scrim" id="filterScrim"></div>
+<aside class="filter-drawer" id="filterDrawer">
+<div class="filter-drawer-head">
+<h3>Filtros</h3>
+<button class="icon-btn" id="filterClose" aria-label="Cerrar filtros">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+</button>
+</div>
+<div class="filter-mount-wrap" id="filterMountWrap"></div>
+<div class="clear-filters-mount" id="clearFiltersMount"></div>
+</aside>
+<!-- ============ PAGE: HOME ============ -->
+<section class="page active" id="page-home">
+<header class="app-header">
+<div class="header-side">
+<button class="icon-btn" data-open-drawer aria-label="Menú">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
+<div class="header-side">
+<button class="icon-btn" data-goto="Hoja1" aria-label="Siguiente">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+</button>
+</div>
+</header>
+<div class="hero">
+<video autoplay muted loop playsinline>
+<source src="https://d1pnk0oci680mj.cloudfront.net/uploads/video_avoris_a695b53c38.mp4" type="video/mp4">
+</video>
+<div class="hero-content">
+<p class="hero-kicker">Informes Qlik</p>
+<h1 class="hero-title serif">Versión Movil</h1>
+</div>
+</div>
+<article class="home-article">
+<img class="home-feature-img" src="https://dagoavoris.github.io/DAGO/img/new_datagovernance.png" alt="" />
+<div class="byline">
+<span class="dot"></span>
+<span>Desarrollado por: &nbsp;ruben.afonso@avoristravel.com &nbsp; miguel.garciagil@avoristravel.com</span>
+</div>
+<hr class="hr-thin" />
+<h2 class="serif">La información clave, al instante y centralizada</h2>
+<p>Esta aplicación nace como una solución a las necesidades profesionales de disponer de datos de forma dinámica y centralizada. Está diseñada bajo los principios de Data Governance, unificando el seguimiento de los indicadores más relevantes y contribuyendo a una toma de decisiones más ágil y eficiente.</p>
+</article>
+</section>
+<!-- ============ PAGE: Hoja1 ============ https://avoristravel.eu.qlikcloud.com/sense/app/f748f9a1-a57d-478f-855f-26330f1f2123/sheet/mzUFkJ/state/analysis -->
+<section class="page" id="page-Hoja1">
+<header class="app-header">
+<div class="header-side">
+<button class="icon-btn" data-open-drawer aria-label="Menú">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
+<div class="header-side">
+<button class="icon-btn" data-goto="home" aria-label="Anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+</button>
+<button class="icon-btn" data-goto="Hoja2" aria-label="Siguiente">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+</button>
+<button class="icon-btn" data-open-filter aria-label="Filtros">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+</button>
+</div>
+</header>
+<div class="section-page" id="Hoja1-body">
+<div class="update-date" data-ui="analytics/chart" data-app-id="f748f9a1-a57d-478f-855f-26330f1f2123" data-object-id="QqBSeX"></div>
+<div class="tab-title">
+<h2>Venta + Cartera (TA-Digital-Geotravel)</h2>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">KPI</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="classic/chart" data-app-id="f748f9a1-a57d-478f-855f-26330f1f2123" data-object-id="PxMxDY"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Vs PPTO</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="classic/chart" data-app-id="f748f9a1-a57d-478f-855f-26330f1f2123" data-object-id="EMjpfL"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Generación Negocio</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="f748f9a1-a57d-478f-855f-26330f1f2123" data-object-id="Kphjre"></div>
+</div>
+</div>
+</section>
+<!-- ============ PAGE: Hoja2 ============ https://avoristravel.eu.qlikcloud.com/sense/app/45cc875c-2eea-444d-b1e0-6344678f71d6/overview -->
+<section class="page" id="page-Hoja2">
+<header class="app-header">
+<div class="header-side">
+<button class="icon-btn" data-open-drawer aria-label="Menú">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
+<div class="header-side">
+<button class="icon-btn" data-goto="Hoja1" aria-label="Anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+</button>
+<button class="icon-btn" data-goto="Hoja3" aria-label="Siguiente">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+</button>
+<button class="icon-btn" data-open-filter aria-label="Filtros">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+</button>
+</div>
+</header>
+<div class="section-page" id="Hoja2-body">
+<div class="update-date" data-ui="analytics/chart" data-app-id="45cc875c-2eea-444d-b1e0-6344678f71d6" data-object-id="AcPeFb"></div>
+<div class="tab-title">
+<h2>ABC Proveedores (TA-Digital-Geotravel)</h2>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Semana Vencida</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="classic/chart" data-app-id="45cc875c-2eea-444d-b1e0-6344678f71d6" data-object-id="PLxEEGD"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Mes Vencido</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="45cc875c-2eea-444d-b1e0-6344678f71d6" data-object-id="qWKjTGK"></div>
+</div>
+</div>
+</section>
+<!-- ============ PAGE: Hoja3 ============ https://avoristravel.eu.qlikcloud.com/sense/app/20c49edc-8fed-4cc5-b73c-e40db9f6e30c/overview -->
+<section class="page" id="page-Hoja3">
+<header class="app-header">
+<div class="header-side">
+<button class="icon-btn" data-open-drawer aria-label="Menú">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
+<div class="header-side">
+<button class="icon-btn" data-goto="Hoja2" aria-label="Anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+</button>
+<button class="icon-btn" data-goto="Hoja4" aria-label="Siguiente">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+</button>
+<button class="icon-btn" data-open-filter aria-label="Filtros">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+</button>
+</div>
+</header>
+<div class="section-page" id="Hoja3-body">
+<div class="update-date" data-ui="analytics/chart" data-app-id="20c49edc-8fed-4cc5-b73c-e40db9f6e30c" data-object-id="MNRtLjF"></div>
+<div class="tab-title">
+<h2>Ctool (TA-Digital-Geotravel)</h2>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">CCONVERSION POR MESES</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="20c49edc-8fed-4cc5-b73c-e40db9f6e30c" data-object-id="jEEgQKK"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">CONVERSION POR MAESTRO CECO</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="20c49edc-8fed-4cc5-b73c-e40db9f6e30c" data-object-id="jQJudqm"></div>
+</div>
+</div>
+</section>
+<!-- ============ PAGE: Hoja4 ============ https://avoristravel.eu.qlikcloud.com/sense/app/1088df3b-29d7-48ec-97ba-1cdbe659d5e6/overview -->
+<section class="page" id="page-Hoja4">
+<header class="app-header">
+<div class="header-side">
+<button class="icon-btn" data-open-drawer aria-label="Menú">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
+<div class="header-side">
+<button class="icon-btn" data-goto="Hoja3" aria-label="Anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+</button>
+<button class="icon-btn" data-goto="Hoja5" aria-label="Siguiente">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+</button>
+<button class="icon-btn" data-open-filter aria-label="Filtros">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+</button>
+</div>
+</header>
+<div class="section-page" id="Hoja4-body">
+<div class="update-date" data-ui="analytics/chart" data-app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" data-object-id="aTGtV"></div>
+<div class="tab-title">
+<h2>RRHH</h2>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Geolocalización (tabla)</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" data-object-id="NPmNnC"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Geolocalización (mapa) </p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="classic/chart" data-app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" data-object-id="qUSpfg"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Listado empleados</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="1088df3b-29d7-48ec-97ba-1cdbe659d5e6" data-object-id="WLZPnA"></div>
+</div>
+</div>
+</section>
+<!-- ============ PAGE: Hoja5 ============ https://avoristravel.eu.qlikcloud.com/sense/app/317d5e46-b448-4dd4-8dab-95e072ad1cb8/overview -->
+<section class="page" id="page-Hoja5">
+<header class="app-header">
+<div class="header-side">
+<button class="icon-btn" data-open-drawer aria-label="Menú">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
+<div class="header-side">
+<button class="icon-btn" data-goto="Hoja4" aria-label="Anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+</button>
+<button class="icon-btn" data-goto="Hoja6" aria-label="Siguiente">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+</button>
+<button class="icon-btn" data-open-filter aria-label="Filtros">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+</button>
+</div>
+</header>
+<div class="section-page" id="Hoja5-body">
+<div class="update-date" data-ui="analytics/chart" data-app-id="317d5e46-b448-4dd4-8dab-95e072ad1cb8" data-object-id="EjpJxc"></div>
+<div class="tab-title">
+<h2>Jira</h2>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Informadores</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="317d5e46-b448-4dd4-8dab-95e072ad1cb8" data-object-id="nTrvYjj"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Maestro Ceco del informador</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="classic/chart" data-app-id="317d5e46-b448-4dd4-8dab-95e072ad1cb8" data-object-id="THnGxSj"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Sprint Actual BI</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="317d5e46-b448-4dd4-8dab-95e072ad1cb8" data-object-id="WDGqr"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Cierre Jiras de BI</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="317d5e46-b448-4dd4-8dab-95e072ad1cb8" data-object-id="QAMAeR"></div>
+</div>
+</div>
+</section>
+<!-- ============ PAGE: Hoja6 ============ -->
+<section class="page" id="page-Hoja6">
+<header class="app-header">
+<div class="header-side">
+<button class="icon-btn" data-open-drawer aria-label="Menú">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
+<div class="header-side">
+<button class="icon-btn" data-goto="Hoja5" aria-label="Anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+</button>
+<button class="icon-btn" data-goto="Hoja7" aria-label="Siguiente">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+</button>
+<button class="icon-btn" data-open-filter aria-label="Filtros">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+</button>
+</div>
+</header>
+<div class="section-page" id="Hoja6-body">
+<div class="update-date" data-ui="analytics/chart" data-app-id="4a723848-9032-4dd2-89a8-f67230cd6fcf" data-object-id="eCqFG"></div>
+<div class="tab-title">
+<h2>Imserso TO</h2>
+</div>  
+<div class="tab-title">
+    <p class="eyebrow serif">Reparto Plazas totales</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="4a723848-9032-4dd2-89a8-f67230cd6fcf" data-object-id="zPckDJ"></div>
+</div>    
+<div class="tab-title">
+    <p class="eyebrow serif">Evolución Plazas Totales</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="4a723848-9032-4dd2-89a8-f67230cd6fcf" data-object-id="PpzpHw"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Geolocalización B2B</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="classic/chart" data-app-id="4a723848-9032-4dd2-89a8-f67230cd6fcf" data-object-id="kYGuJZv"></div>
+</div>
+</div>
+</section>
+<!-- ============ PAGE: Hoja7 ============ -->
+<section class="page" id="page-Hoja7">
+<header class="app-header">
+<div class="header-side">
+<button class="icon-btn" data-open-drawer aria-label="Menú">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
+<div class="header-side">
+<button class="icon-btn" data-goto="Hoja6" aria-label="Anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+</button>
+<button class="icon-btn" data-goto="Hoja8" aria-label="Siguiente">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+</button>
+<button class="icon-btn" data-open-filter aria-label="Filtros">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+</button>
+</div>
+</header>
+<div class="section-page" id="Hoja7-body">
+<div class="update-date" data-ui="analytics/chart" data-app-id="b47940e4-8412-47b5-986a-ff0beaa208c4" data-object-id="bnCuVz"></div>
+<div class="tab-title">
+<h2>Imserso TA</h2>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">KPI</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="analytics/chart" data-app-id="b47940e4-8412-47b5-986a-ff0beaa208c4" data-object-id="zmbkdsy"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Maestro CECOS</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="classic/chart" data-app-id="b47940e4-8412-47b5-986a-ff0beaa208c4" data-object-id="CeHPc"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Geolocalización B2B</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="classic/chart" data-app-id="b47940e4-8412-47b5-986a-ff0beaa208c4" data-object-id="AaUpFN"></div>
+</div>
+</div>
+</section>
+<!-- ============ PAGE: Hoja8 ============ -->
+<section class="page" id="page-Hoja8">
+<header class="app-header">
+<div class="header-side">
+<button class="icon-btn" data-open-drawer aria-label="Menú">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<img class="header-logo" src="https://dagoavoris.github.io/DAGO/img/logo.svg" alt="Avoris" />
+<div class="header-side">
+<button class="icon-btn" data-goto="Hoja7" aria-label="Anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+</button>
+<button class="icon-btn" data-open-filter aria-label="Filtros">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+</button>
+</div>
+</header>
+<div class="section-page" id="Hoja8-body">
+<div class="update-date" data-ui="analytics/chart" data-app-id="b01d082a-f041-4cf1-9191-28a10140f9d2" data-object-id="NRZDpP"></div>
+<div class="tab-title">
+<h2>Welcometickets</h2>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Mes Compra</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="classic/chart" data-app-id="b01d082a-f041-4cf1-9191-28a10140f9d2" data-object-id="nXpbHwD"></div>
+</div>
+<div class="tab-title">
+    <p class="eyebrow serif">Mes Evento</p>
+    </div>
+    <div class="obj-card full-tall plain">
+    <div class="obj-mount" data-ui="classic/chart" data-app-id="b01d082a-f041-4cf1-9191-28a10140f9d2" data-object-id="GacYRmL"></div>
+</div>    
+</div>
+</section>
+    
+<!-- ============ navegación, drawer, filtros ============ -->
+<script>
+(function(){
+var TABS = ["home","Hoja1","Hoja2","Hoja3","Hoja4","Hoja5","Hoja6","Hoja7","Hoja8"];
+var FILTERS = {
+Hoja1: { app:"f748f9a1-a57d-478f-855f-26330f1f2123", panel:"qEXjSQ", clear:"AktNMR" },
+Hoja2: { app:"45cc875c-2eea-444d-b1e0-6344678f71d6", panel:"pgjZcWq", clear:"zYqVew" },
+Hoja3: { app:"20c49edc-8fed-4cc5-b73c-e40db9f6e30c", panel:"FfscDt", clear:"gPCaam" },
+Hoja4: { app:"1088df3b-29d7-48ec-97ba-1cdbe659d5e6", panel:"jZSwYff", clear:"PcPPcZ" },
+Hoja5: { app:"317d5e46-b448-4dd4-8dab-95e072ad1cb8", panel:"DmHG", clear:"Eszxyp" },
+Hoja6: { app:"4a723848-9032-4dd2-89a8-f67230cd6fcf", panel:"AXkmLjm", clear:"ukvU" },
+Hoja7: { app:"b47940e4-8412-47b5-986a-ff0beaa208c4", panel:"juGeE", clear:"PBDVm" },
+Hoja8: { app:"b01d082a-f041-4cf1-9191-28a10140f9d2", panel:"JURqhbB", clear:"YTSCqSs" }
+};
+var currentFilterTab = null;
+function goto(tab){
+TABS.forEach(function(t){
+document.getElementById("page-"+t).classList.toggle("active", t === tab);
+});
+document.querySelectorAll(".drawer nav button[data-goto]").forEach(function(b){
+b.classList.toggle("active", b.getAttribute("data-goto") === tab);
+});
+closeDrawer();
+closeFilter();
+window.scrollTo(0,0);
+}
+    window.goto = goto;
+document.querySelectorAll("[data-goto]").forEach(function(btn){
+btn.addEventListener("click", function(){ goto(btn.getAttribute("data-goto")); });
+});
+// ---- Side drawer ----
+var drawer = document.getElementById("drawer");
+var drawerScrim = document.getElementById("drawerScrim");
+function openDrawer(){ drawer.classList.add("open"); drawerScrim.classList.add("open"); }
+function closeDrawer(){ drawer.classList.remove("open"); drawerScrim.classList.remove("open"); }
+document.querySelectorAll("[data-open-drawer]").forEach(function(b){ b.addEventListener("click", openDrawer); });
+document.getElementById("drawerClose").addEventListener("click", closeDrawer);
+drawerScrim.addEventListener("click", closeDrawer);
+// ---- Filter drawer ----
+var filterDrawer = document.getElementById("filterDrawer");
+var filterScrim = document.getElementById("filterScrim");
+var filterMountWrap = document.getElementById("filterMountWrap");
+var clearFiltersMount = document.getElementById("clearFiltersMount");
+function createEmbed(appId, objectId){
+var el = document.createElement("qlik-embed");
+el.setAttribute("ui", "analytics/chart");
+el.setAttribute("app-id", appId);
+el.setAttribute("object-id", objectId);
+el.style.width = "100%";
+el.style.height = "100%";
+el.style.display = "block";
+return el;
+}
+function openFilter(){
+var activeTab = TABS.filter(function(t){ return document.getElementById("page-"+t).classList.contains("active"); })[0];
+var cfg = FILTERS[activeTab];
+if(!cfg) return;
+if(currentFilterTab !== activeTab){
+filterMountWrap.innerHTML = "";
+clearFiltersMount.innerHTML = "";
+filterMountWrap.appendChild(createEmbed(cfg.app, cfg.panel));
+clearFiltersMount.appendChild(createEmbed(cfg.app, cfg.clear));
+currentFilterTab = activeTab;
+}
+filterDrawer.classList.add("open");
+filterScrim.classList.add("open");
+}
+function closeFilter(){ filterDrawer.classList.remove("open"); filterScrim.classList.remove("open"); }
+document.querySelectorAll("[data-open-filter]").forEach(function(b){ b.addEventListener("click", openFilter); });
+document.getElementById("filterClose").addEventListener("click", closeFilter);
+filterScrim.addEventListener("click", closeFilter);
+// ---- Initial state ----
+goto("home");
+})();
+</script>
+<!-- ============ carga en cola de fondo con prioridad para la hoja seleccionada ============ -->
+<script>
+(function(){
+// Cuántos embeds se pueden estar montando a la vez. 1 = lo más suave para el rendimiento.
+var CONCURRENCY = 4;
+// Orden en que se cargarán en segundo plano las hojas que aún no se han visitado.
+var HOJAS_ORDEN = ["Hoja1","Hoja2","Hoja3","Hoja4","Hoja5","Hoja6","Hoja7","Hoja8"];
+
+var queue = [];
+var activeCount = 0;
+var loadedMounts = new WeakSet();
+window.precargaIniciada = false;
+window.HOJAS_ACCESIBLES = [];
+    
+function mountsOfHoja(hojaId){
+var root = document.getElementById("page-" + hojaId);
+if(!root) return [];
+return Array.prototype.slice.call(root.querySelectorAll("[data-app-id]"));
+}
+
+function crearEmbed(mount){
+if (loadedMounts.has(mount)) return null;
+var embed = document.createElement("qlik-embed");
+embed.setAttribute("ui", mount.getAttribute("data-ui"));
+embed.setAttribute("app-id", mount.getAttribute("data-app-id"));
+embed.setAttribute("object-id", mount.getAttribute("data-object-id"));
+mount.appendChild(embed);
+loadedMounts.add(mount);
+return embed;
+}
+
+// Añade los objetos pendientes de una hoja a la cola.
+// prioridad = true -> se ponen al principio de la cola (máxima prioridad).
+function encolarHoja(hojaId, prioridad){
+var pendientes = mountsOfHoja(hojaId).filter(function(m){ return !loadedMounts.has(m); });
+if (!pendientes.length) return;
+    console.log(
+    "📥 Encolando hoja:",
+    hojaId,
+    pendientes.map(function(m){
+    return {
+    app: m.getAttribute("data-app-id"),
+    object: m.getAttribute("data-object-id")
+    };
+    })
+    );
+// Si ya estaban en cola más atrás, los quitamos para no duplicarlos.
+queue = queue.filter(function(m){ return pendientes.indexOf(m) === -1; });
+if (prioridad) {
+queue = pendientes.concat(queue);
+} else {
+queue = queue.concat(pendientes);
+}
+procesarCola();
+}
+
+function procesarCola(){
+while (activeCount < CONCURRENCY && queue.length){
+var mount = queue.shift();
+if (loadedMounts.has(mount)) continue;
+activeCount++;
+var embed = crearEmbed(mount);
+if (!embed) { activeCount--; continue; }
+var terminado = false;
+function onDone(){
+if (terminado) return;
+terminado = true;
+activeCount--;
+procesarCola();
+}
+embed.addEventListener("load", onDone, { once: true });
+// Por si ese ui= concreto no dispara 'load', no bloqueamos la cola indefinidamente.
+setTimeout(onDone, 2500);
+}
+}
+
+function iniciarPrecargaPermitida(hojaActual){
+    if (window.precargaIniciada) return;
+    window.precargaIniciada = true;
+    (window.HOJAS_ACCESIBLES || []).forEach(function(h){
+    if(h !== hojaActual){
+    encolarHoja(h,false);
+    }
+    });
+    console.log(
+    "Precargando hojas accesibles:",
+    window.HOJAS_ACCESIBLES
+    );
+}
+    
+// Cuando el usuario pulsa cualquier botón que lleve a una hoja (menú, flechas...),
+// esa hoja pasa a la cabeza de la cola con prioridad máxima.
+    document.addEventListener("click", function(e){
+    var el = e.target.closest ? e.target.closest("[data-goto]") : null;
+    if (!el) return;
+    var destino = el.getAttribute("data-goto");
+    if (HOJAS_ORDEN.indexOf(destino) !== -1) {
+    encolarHoja(destino, true);
+    }
+    }, true);
+    // EXPONER LA FUNCIÓN AL OTRO SCRIPT
+    window.iniciarPrecargaPermitida = iniciarPrecargaPermitida;
+    })();
+
+</script>
+<!-- ============ control de acceso dinámico a pestañas ============ -->
+<script>
+(async function() {
+var ORDEN = ["home", "Hoja1", "Hoja2", "Hoja3", "Hoja4", "Hoja5", "Hoja6", "Hoja7", "Hoja8"];
+var APP_POR_HOJA = {
+"Hoja1": "f748f9a1-a57d-478f-855f-26330f1f2123", // Venta+Cartera
+"Hoja2": "45cc875c-2eea-444d-b1e0-6344678f71d6", // ABC Proveedores
+"Hoja3": "20c49edc-8fed-4cc5-b73c-e40db9f6e30c", // CTOOL
+"Hoja4": "1088df3b-29d7-48ec-97ba-1cdbe659d5e6", // RRHH
+"Hoja5": "317d5e46-b448-4dd4-8dab-95e072ad1cb8", // Jira
+"Hoja6": "4a723848-9032-4dd2-89a8-f67230cd6fcf", // Imserso TO
+"Hoja7": "b47940e4-8412-47b5-986a-ff0beaa208c4", // Imserso TA
+"Hoja8": "b01d082a-f041-4cf1-9191-28a10140f9d2" // IWelcometickets
+};
+var accesibles = null; // se rellena tras consultar Qlik; null = aún no se sabe
+
+async function cargarUsuario(){
+
+    var token = getQlikToken();
+
+    if(!token){
+        document.querySelector("#userWelcome .nombre").textContent =
+        "Usuario";
+        return;
+    }
+
+    try{
+
+        var resp = await fetch(
+            "https://avoristravel.eu.qlikcloud.com/api/v1/users/me",
+            {
+                headers:{
+                    "Authorization":"Bearer " + token
+                }
+            }
+        );
+
+        if(!resp.ok){
+            document.querySelector("#userWelcome .nombre").textContent =
+            "Usuario";
+            return;
+        }
+
+        var usuario = await resp.json();
+
+        document.querySelector("#userWelcome .nombre").textContent =
+            usuario.name ||
+            usuario.email ||
+            "Usuario";
+
+    }catch(err){
+
+        console.error(err);
+
+        document.querySelector("#userWelcome .nombre").textContent =
+        "Usuario";
+
+    }
+}
+
+
+
+function esAccesible(hojaId) {
+if (hojaId === "home") return true; // Inicio siempre visible
+if (accesibles === null) return true; // aún no lo sabemos, no bloquear de más
+return accesibles.indexOf(hojaId) !== -1;
+}
+// Dado un punto de partida y una dirección (+1 siguiente / -1 anterior),
+// busca la próxima hoja accesible en esa dirección dentro de ORDEN.
+function siguienteAccesible(desdeId, direccion) {
+var idx = ORDEN.indexOf(desdeId);
+for (var i = idx + direccion; i >= 0 && i < ORDEN.length; i += direccion) {
+if (esAccesible(ORDEN[i])) return ORDEN[i];
+}
+return null; // no hay ninguna más accesible en esa dirección
+}
+// Recalcula a dónde deben apuntar las flechas "Siguiente"/"Anterior" de cada página
+function actualizarFlechas() {
+ORDEN.forEach(function(hojaId) {
+var seccion = document.getElementById("page-" + hojaId);
+if (!seccion) return;
+var btnAnterior = seccion.querySelector('.icon-btn[aria-label="Anterior"]');
+var btnSiguiente = seccion.querySelector('.icon-btn[aria-label="Siguiente"]');
+if (btnAnterior) {
+var destinoAnt = siguienteAccesible(hojaId, -1);
+if (destinoAnt) {
+btnAnterior.setAttribute("data-goto", destinoAnt);
+btnAnterior.style.display = "";
+} else {
+btnAnterior.style.display = "none";
+}
+}
+if (btnSiguiente) {
+var destinoSig = siguienteAccesible(hojaId, 1);
+if (destinoSig) {
+btnSiguiente.setAttribute("data-goto", destinoSig);
+btnSiguiente.style.display = "";
+} else {
+btnSiguiente.style.display = "none";
+}
+}
+});
+}
+function ocultarBotonMenu(hojaId) {
+document.querySelectorAll('.drawer nav button[data-goto="' + hojaId + '"]').forEach(function(btn){
+btn.style.display = "none";
+});
+}
+// Bloqueo duro: intercepta cualquier clic en [data-goto] hacia una hoja no accesible,
+// en fase de captura, antes de que se ejecute el goto() original.
+document.addEventListener("click", function(e) {
+var el = e.target.closest ? e.target.closest("[data-goto]") : null;
+if (!el) return;
+var destino = el.getAttribute("data-goto");
+if (!esAccesible(destino)) {
+e.preventDefault();
+e.stopImmediatePropagation();
+e.stopPropagation();
+console.warn("Acceso denegado a " + destino);
+}
+}, true);
+async function filtrarAccesoPorApp() {
+var token = getQlikToken();
+if (!token) {
+console.error("No se encontró el token de Qlik en sessionStorage.");
+return;
+}
+var headers = { "Accept": "application/json", "Authorization": "Bearer " + token };
+// Consultamos cada app individualmente: si el usuario tiene acceso, Qlik responde 200;
+// si no, responde 403/404. Evita problemas de paginación al listar todas las apps del tenant.
+var checks = Object.keys(APP_POR_HOJA).map(async function(hojaId) {
+var appId = APP_POR_HOJA[hojaId];
+try {
+var resp = await fetch(
+"https://avoristravel.eu.qlikcloud.com/api/v1/apps/" + appId,
+{ headers: headers }
+);
+return { hojaId: hojaId, ok: resp.ok };
+} catch (err) {
+console.error("Error comprobando acceso a " + hojaId + ":", err);
+return { hojaId: hojaId, ok: false };
+}
+});
+var resultados = await Promise.all(checks);
+accesibles = resultados.filter(function(r){ return r.ok; }).map(function(r){ return r.hojaId; });
+    window.HOJAS_ACCESIBLES = accesibles.slice();
+        console.log(
+        "✅ Hojas permitidas:",
+        window.HOJAS_ACCESIBLES
+        );
+    if (window.iniciarPrecargaPermitida) {
+    window.iniciarPrecargaPermitida(null);
+    }
+resultados.forEach(function(r){
+if (!r.ok) ocultarBotonMenu(r.hojaId);
+});
+actualizarFlechas();
+}
+window.addEventListener("load", async function(){
+while(
+!customElements.get("qlik-embed") ||
+!getQlikToken()
+){
+await new Promise(r => setTimeout(r,500));
+}
+await filtrarAccesoPorApp();
+await cargarUsuario();
+});
+})();
+</script>
+</body>
+</html>
