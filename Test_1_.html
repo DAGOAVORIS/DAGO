@@ -1001,11 +1001,16 @@ var accesibles = null; // se rellena tras consultar Qlik; null = aún no se sabe
 
 async function cargarUsuario(){
 
+    var nombreControl = document.querySelector("#userWelcome .nombre");
+
+    if(!nombreControl){
+        return;
+    }
+
     var token = getQlikToken();
 
     if(!token){
-        document.querySelector("#userWelcome .nombre").textContent =
-        "Usuario";
+        nombreControl.textContent = "Usuario";
         return;
     }
 
@@ -1021,30 +1026,39 @@ async function cargarUsuario(){
         );
 
         if(!resp.ok){
-            document.querySelector("#userWelcome .nombre").textContent =
-            "Usuario";
+            nombreControl.textContent = "Usuario";
             return;
         }
 
         var usuario = await resp.json();
 
-        document.querySelector("#userWelcome .nombre").textContent =
+        nombreControl.textContent =
             usuario.name ||
             usuario.email ||
+            usuario.subject ||
             "Usuario";
 
     }catch(err){
 
         console.error(err);
 
-        document.querySelector("#userWelcome .nombre").textContent =
-        "Usuario";
-
+        nombreControl.textContent = "Usuario";
     }
+
 }
 
+function getQlikToken() {
 
 
+for (var i = 0; i < sessionStorage.length; i++) {
+var key = sessionStorage.key(i);
+if (key && key.indexOf("qlik") !== -1 && key.indexOf("access-token") !== -1) {
+var val = sessionStorage.getItem(key);
+if (val) return val; // el valor ya es el token JWT en texto plano
+}
+}
+return null;
+}
 function esAccesible(hojaId) {
 if (hojaId === "home") return true; // Inicio siempre visible
 if (accesibles === null) return true; // aún no lo sabemos, no bloquear de más
