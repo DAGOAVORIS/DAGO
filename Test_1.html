@@ -136,7 +136,29 @@ min-height:0;
 padding-right:4px;
 }
 .drawer.open{transform:translateX(0);}
-.drawer-close{align-self:flex-end;color:#fff;margin-bottom:20px;}
+.user-welcome{
+    padding:0 12px 18px 12px;
+    margin-bottom:16px;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+}
+
+.user-welcome .saludo{
+    display:block;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:rgba(255,255,255,0.55);
+}
+
+.user-welcome .nombre{
+    display:block;
+    margin-top:4px;
+    font-family:'Fraunces',serif;
+    font-size:18px;
+    font-weight:600;
+    color:#FFDE21;
+    line-height:1.2;
+}
 .drawer nav button{
 text-align:left;padding:10px 12px;
 font-family:'Fraunces',serif;font-size:16px;color:#fff;
@@ -354,11 +376,20 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 <div id="app">
 <!-- ============ DRAWER NAV ============ -->
 <div class="drawer-scrim" id="drawerScrim"></div>
+
 <aside class="drawer" id="drawer">
+
 <button class="drawer-close icon-btn" id="drawerClose" aria-label="Cerrar menú">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+...
 </button>
+
+<div id="userWelcome" class="user-welcome">
+    <span class="saludo">Bienvenido</span>
+    <span class="nombre">Cargando...</span>
+</div>
+
 <nav>
+
 <button data-goto="home">Intro</button>
 <button data-goto="Hoja1">Venta+Cartera <br>(TA-Digital-Geotravel) </button>
 <button data-goto="Hoja2">ABC Proveedores <br>(TA-Digital-Geotravel)</button>
@@ -968,6 +999,38 @@ var APP_POR_HOJA = {
 };
 var accesibles = null; // se rellena tras consultar Qlik; null = aún no se sabe
 function getQlikToken() {
+    async function cargarUsuario(){
+
+    var token = getQlikToken();
+
+    if(!token) return;
+
+    try{
+
+        var resp = await fetch(
+            "https://avoristravel.eu.qlikcloud.com/api/v1/users/me",
+            {
+                headers:{
+                    "Authorization":"Bearer " + token
+                }
+            }
+        );
+
+        if(!resp.ok) return;
+
+        var usuario = await resp.json();
+
+        document.querySelector(
+            "#userWelcome .nombre"
+        ).textContent =
+            usuario.name ||
+            usuario.subject ||
+            "Usuario";
+
+    }catch(err){
+        console.error(err);
+    }
+}
 for (var i = 0; i < sessionStorage.length; i++) {
 var key = sessionStorage.key(i);
 if (key && key.indexOf("qlik") !== -1 && key.indexOf("access-token") !== -1) {
@@ -1081,6 +1144,7 @@ while(
 await new Promise(r => setTimeout(r,500));
 }
 await filtrarAccesoPorApp();
+await cargarUsuario();
 });
 })();
 </script>
