@@ -283,6 +283,43 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 @media (orientation: landscape){
 #app{max-width:min(1100px, 100%);}
 } 
+/* ===== Loading Qlik ===== */
+.obj-mount,
+.update-date{
+position: relative;
+}
+.qlik-loading{
+position:absolute;
+inset:0;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:12px;
+background:rgba(255,255,255,0.95);
+z-index:10;
+transition:opacity .3s ease;
+}
+.qlik-loading.hidden{
+opacity:0;
+pointer-events:none;
+}
+.qlik-spinner{
+width:34px;
+height:34px;
+border:3px solid rgba(0,0,0,.12);
+border-top-color:var(--gold);
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+.qlik-loading span{
+font-size:14px;
+color:var(--muted);
+font-weight:500;
+}
+@keyframes spin{
+to{ transform:rotate(360deg); }
+}    
 </style>
 </head>
 <body>
@@ -295,9 +332,9 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 </button>
 <nav>
 <button data-goto="home">Intro</button>
-<button data-goto="Hoja1">Venta+Cartera <br>(TA-Digital-Geotravel) </button>
-<button data-goto="Hoja2">ABC Proveedores <br>(TA-Digital-Geotravel)</button>
-<button data-goto="Hoja3">CTOOL <br>(TA-Digital-Geotravel)</button>
+<button data-goto="Hoja1">Venta+Cartera<br>(TA-Digital-Geotravel)</button>
+<button data-goto="Hoja2">ABC Proveedores<br>(TA-Digital-Geotravel)</button>
+<button data-goto="Hoja3">Ctool<br>(TA-Digital-Geotravel)</button>
 <button data-goto="Hoja4">RRHH</button>
 <button data-goto="Hoja5">Jira</button>
 <button data-goto="Hoja6">Imserso TO</button>
@@ -377,7 +414,7 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 <div class="section-page" id="Hoja1-body">
 <div class="update-date" data-ui="analytics/chart" data-app-id="f748f9a1-a57d-478f-855f-26330f1f2123" data-object-id="QqBSeX"></div>
 <div class="tab-title">
-<h2>Venta + Cartera (TA-Digital-Geotravel)</h2>
+<h2>Venta + Cartera</h2>
 </div>
 <div class="tab-title">
     <p class="eyebrow serif">KPI</p>
@@ -423,7 +460,7 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 <div class="section-page" id="Hoja2-body">
 <div class="update-date" data-ui="analytics/chart" data-app-id="45cc875c-2eea-444d-b1e0-6344678f71d6" data-object-id="AcPeFb"></div>
 <div class="tab-title">
-<h2>ABC Proveedores (TA-Digital-Geotravel)</h2>
+<h2>ABC Proveedores</h2>
 </div>
 <div class="tab-title">
     <p class="eyebrow serif">Semana Vencida</p>
@@ -463,7 +500,7 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 <div class="section-page" id="Hoja3-body">
 <div class="update-date" data-ui="analytics/chart" data-app-id="20c49edc-8fed-4cc5-b73c-e40db9f6e30c" data-object-id="MNRtLjF"></div>
 <div class="tab-title">
-<h2>Ctool (TA-Digital-Geotravel)</h2>
+<h2>Ctool</h2>
 </div>
 <div class="tab-title">
     <p class="eyebrow serif">CCONVERSION POR MESES</p>
@@ -803,15 +840,33 @@ return Array.prototype.slice.call(root.querySelectorAll("[data-app-id]"));
 }
 
 function crearEmbed(mount){
-if (loadedMounts.has(mount)) return null;
-var embed = document.createElement("qlik-embed");
-embed.setAttribute("ui", mount.getAttribute("data-ui"));
-embed.setAttribute("app-id", mount.getAttribute("data-app-id"));
-embed.setAttribute("object-id", mount.getAttribute("data-object-id"));
-mount.appendChild(embed);
-loadedMounts.add(mount);
-return embed;
-}
+    if (loadedMounts.has(mount)) return null;
+    // Loader
+    var loader = document.createElement("div");
+    loader.className = "qlik-loading";
+    loader.innerHTML =
+    '<div class="qlik-spinner"></div>' +
+    '<span>Actualizando datos...</span>';
+    mount.appendChild(loader);
+    // Embed
+    var embed = document.createElement("qlik-embed");
+    embed.setAttribute("ui", mount.getAttribute("data-ui"));
+    embed.setAttribute("app-id", mount.getAttribute("data-app-id"));
+    embed.setAttribute("object-id", mount.getAttribute("data-object-id"));
+    mount.appendChild(embed);
+    // Ocultar loader cuando termine
+    function ocultarLoader(){
+    loader.classList.add("hidden");
+    setTimeout(function(){
+    loader.remove();
+    },300);
+    }
+    embed.addEventListener("load", ocultarLoader, { once:true });
+    // Fallback por si algún objeto no dispara el evento
+    setTimeout(ocultarLoader, 5000);
+    loadedMounts.add(mount);
+    return embed;
+    }
 
 // Añade los objetos pendientes de una hoja a la cola.
 // prioridad = true -> se ponen al principio de la cola (máxima prioridad).
