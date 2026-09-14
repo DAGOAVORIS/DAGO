@@ -21,37 +21,67 @@ data-auto-redirect="true"
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
---cream:#FFFCEB;
+--cream:#F3F5F7;
 --white:#FFFFFF;
---ink:#152229;
---teal:#16262E;
---gold:#F0C230;
---line: rgba(21,34,41,0.12);
---muted:#5B6A70;
---header-h: 48px;
---safe-t: env(safe-area-inset-top, 0px);
---safe-b: env(safe-area-inset-bottom, 0px);
+--ink:#14212A;
+--teal:#3f3e3e;
+--gold:#FFDE21;
+
+--line:rgba(21,34,41,.08);
+--muted:#64707A;
+
+--header-h:48px;
+
+--safe-t:env(safe-area-inset-top,0px);
+--safe-b:env(safe-area-inset-bottom,0px);
+
+--shadow:
+0 8px 30px rgba(0,0,0,.08);
+
+--shadow-hover:
+0 12px 40px rgba(0,0,0,.12);
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
+
 body{
-font-family:'Inter', system-ui, sans-serif;
+background:
+linear-gradient(
+180deg,
+#f7f8fa 0%,
+#eef2f5 100%
+);
+
+font-family:'Inter', sans-serif;
 color:var(--ink);
-background:var(--white);
+
 -webkit-font-smoothing:antialiased;
 overflow-x:hidden;
 }
+
+
+
+
+
+
 h1,h2,h3,.serif{font-family:'Fraunces', Georgia, serif;}
 button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit;}
 img{max-width:100%;display:block;}
 qlik-embed{display:block;width:100%;height:100%;}
 #app{
-max-width:560px;
+max-width:640px;
+
 margin:0 auto;
-min-height:33vh;
-background:var(--white);
-position:relative;
-box-shadow:0 0 40px rgba(0,0,0,0.06);
+
+background:#ffffff;
+
+min-height:100vh;
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.10);
+
+border-left:1px solid rgba(255,255,255,.5);
+border-right:1px solid rgba(255,255,255,.5);
 }
 /* ---------- Header ---------- */
 .app-header{
@@ -106,7 +136,29 @@ min-height:0;
 padding-right:4px;
 }
 .drawer.open{transform:translateX(0);}
-.drawer-close{align-self:flex-end;color:#fff;margin-bottom:20px;}
+.user-welcome{
+    padding:0 12px 18px 12px;
+    margin-bottom:16px;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+}
+
+.user-welcome .saludo{
+    display:block;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:rgba(255,255,255,0.55);
+}
+
+.user-welcome .nombre{
+    display:block;
+    margin-top:4px;
+    font-family:'Fraunces',serif;
+    font-size:18px;
+    font-weight:600;
+    color:#FFDE21;
+    line-height:1.2;
+}
 .drawer nav button{
 text-align:left;padding:10px 12px;
 font-family:'Fraunces',serif;font-size:16px;color:#fff;
@@ -134,20 +186,34 @@ position:relative;
 z-index:1;
 }
 /* ---------- HOME ---------- */
+
 .hero{
 position:relative;
-width:100%;
-height:30vh;
-min-height:200px;
+
+height:38vh;
+min-height:260px;
+
 overflow:hidden;
 background:var(--teal);
 }
+
+
 .hero video{
 position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
 }
 .hero::after{
-content:"";position:absolute;inset:0;
-background:linear-gradient(180deg, rgba(10,16,20,0.05) 0%, rgba(10,16,20,0.05) 55%, rgba(10,16,20,0.65) 100%);
+content:"";
+
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+180deg,
+rgba(0,0,0,0.10) 0%,
+rgba(0,0,0,0.15) 40%,
+rgba(0,0,0,0.70) 100%
+);
 }
 .hero-content{
 position:absolute;left:0;right:0;bottom:0;
@@ -203,11 +269,27 @@ margin:0 0 2px;font-size:13px;color:var(--muted);
 text-transform:uppercase;letter-spacing:.08em;font-weight:500;
 }
 .tab-title h2{margin:0;font-size:23px;font-weight:700;color:var(--ink);}
+
 .update-date{
-margin-top:4px;
-height:32px;
-overflow:hidden;
+margin:12px 16px;
+
+height:36px;
+
+background:#3f3e3e;
+
+border-radius:999px;
+
+padding:0 14px;
+
+display:flex;
+align-items:center;
+
+font-weight:700;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.08);
 }
+
 .update-date qlik-embed{
 width:100%;
 height:100%;
@@ -222,7 +304,12 @@ margin:0 16px 16px;
 padding:6px;
 }
 .obj-card.plain{
-background:none;border:none;border-radius:0;padding:0;
+background:#FFFFFF;
+border:1px solid #E9ECEF;
+border-radius:16px;
+padding:12px;
+box-shadow:var(--shadow);
+margin:0 12px 16px;
 }
 .obj-card.half{
 width:calc(50% - 22px);
@@ -284,57 +371,66 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 #app{max-width:min(1100px, 100%);}
 } 
 /* ===== Loading Qlik ===== */
-.obj-mount,
-.update-date{
-position: relative;
-}
-.qlik-loading{
-position:absolute;
-inset:0;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:12px;
-background:rgba(255,255,255,0.95);
-z-index:10;
-transition:opacity .3s ease;
-}
-.qlik-loading.hidden{
-opacity:0;
-pointer-events:none;
-}
-.qlik-spinner{
-width:34px;
-height:34px;
-border:3px solid rgba(0,0,0,.12);
-border-top-color:var(--gold);
-border-radius:50%;
-animation:spin 1s linear infinite;
-}
-.qlik-loading span{
-font-size:14px;
-color:var(--muted);
-font-weight:500;
-}
-@keyframes spin{
-to{ transform:rotate(360deg); }
-}    
+    .obj-mount,
+    .update-date{
+    position: relative;
+    }
+    .qlik-loading{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    background:rgba(255,255,255,0.95);
+    z-index:10;
+    transition:opacity .3s ease;
+    }
+    .qlik-loading.hidden{
+    opacity:0;
+    pointer-events:none;
+    }
+    .qlik-spinner{
+    width:34px;
+    height:34px;
+    border:3px solid rgba(0,0,0,.12);
+    border-top-color:var(--gold);
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    }
+    .qlik-loading span{
+    font-size:14px;
+    color:var(--muted);
+    font-weight:500;
+    }
+    @keyframes spin{
+    to{ transform:rotate(360deg); }
+    }
 </style>
 </head>
 <body>
 <div id="app">
 <!-- ============ DRAWER NAV ============ -->
 <div class="drawer-scrim" id="drawerScrim"></div>
+
 <aside class="drawer" id="drawer">
+
 <button class="drawer-close icon-btn" id="drawerClose" aria-label="Cerrar menú">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+...
 </button>
+
+<div id="userWelcome" class="user-welcome">
+    <span class="saludo">Bienvenido</span>
+    <span class="nombre"></span>
+</div>
+
 <nav>
+
 <button data-goto="home">Intro</button>
-<button data-goto="Hoja1">Venta+Cartera<br>(TA-Digital-Geotravel)</button>
-<button data-goto="Hoja2">ABC Proveedores<br>(TA-Digital-Geotravel)</button>
-<button data-goto="Hoja3">Ctool<br>(TA-Digital-Geotravel)</button>
+<button data-goto="Hoja1">Venta+Cartera <br>(TA-Digital-Geotravel) </button>
+<button data-goto="Hoja2">ABC Proveedores <br>(TA-Digital-Geotravel)</button>
+<button data-goto="Hoja3">Ctool <br>(TA-Digital-Geotravel)</button>
 <button data-goto="Hoja4">RRHH</button>
 <button data-goto="Hoja5">Jira</button>
 <button data-goto="Hoja6">Imserso TO</button>
@@ -383,7 +479,7 @@ to{ transform:rotate(360deg); }
 <img class="home-feature-img" src="https://dagoavoris.github.io/DAGO/img/new_datagovernance.png" alt="" />
 <div class="byline">
 <span class="dot"></span>
-<span>Desarrollado por: &nbsp;ruben.afonso@avoristravel.com &nbsp; miguel.garciagil@avoristravel.com</span>
+<span>Desarrollado por: &nbsp;ruben.afonso@avoristravel.com &nbsp; ma.garciagil@avoristravel.com</span>
 </div>
 <hr class="hr-thin" />
 <h2 class="serif">La información clave, al instante y centralizada</h2>
@@ -414,7 +510,7 @@ to{ transform:rotate(360deg); }
 <div class="section-page" id="Hoja1-body">
 <div class="update-date" data-ui="analytics/chart" data-app-id="f748f9a1-a57d-478f-855f-26330f1f2123" data-object-id="QqBSeX"></div>
 <div class="tab-title">
-<h2>Venta + Cartera</h2>
+<h2>Venta + Cartera (TA-Digital-Geotravel)</h2>
 </div>
 <div class="tab-title">
     <p class="eyebrow serif">KPI</p>
@@ -460,7 +556,7 @@ to{ transform:rotate(360deg); }
 <div class="section-page" id="Hoja2-body">
 <div class="update-date" data-ui="analytics/chart" data-app-id="45cc875c-2eea-444d-b1e0-6344678f71d6" data-object-id="AcPeFb"></div>
 <div class="tab-title">
-<h2>ABC Proveedores</h2>
+<h2>ABC Proveedores (TA-Digital-Geotravel)</h2>
 </div>
 <div class="tab-title">
     <p class="eyebrow serif">Semana Vencida</p>
@@ -500,7 +596,7 @@ to{ transform:rotate(360deg); }
 <div class="section-page" id="Hoja3-body">
 <div class="update-date" data-ui="analytics/chart" data-app-id="20c49edc-8fed-4cc5-b73c-e40db9f6e30c" data-object-id="MNRtLjF"></div>
 <div class="tab-title">
-<h2>Ctool</h2>
+<h2>Ctool (TA-Digital-Geotravel)</h2>
 </div>
 <div class="tab-title">
     <p class="eyebrow serif">CCONVERSION POR MESES</p>
@@ -957,7 +1053,58 @@ var APP_POR_HOJA = {
 "Hoja8": "b01d082a-f041-4cf1-9191-28a10140f9d2" // IWelcometickets
 };
 var accesibles = null; // se rellena tras consultar Qlik; null = aún no se sabe
+
+async function cargarUsuario(){
+
+    var nombreControl = document.querySelector("#userWelcome .nombre");
+
+    if(!nombreControl){
+        return;
+    }
+
+    var token = getQlikToken();
+
+    if(!token){
+        nombreControl.textContent = "Usuario";
+        return;
+    }
+
+    try{
+
+        var resp = await fetch(
+            "https://avoristravel.eu.qlikcloud.com/api/v1/users/me",
+            {
+                headers:{
+                    "Authorization":"Bearer " + token
+                }
+            }
+        );
+
+        if(!resp.ok){
+            nombreControl.textContent = "Usuario";
+            return;
+        }
+
+        var usuario = await resp.json();
+
+        nombreControl.textContent =
+            usuario.name ||
+            usuario.email ||
+            usuario.subject ||
+            "Usuario";
+
+    }catch(err){
+
+        console.error(err);
+
+        nombreControl.textContent = "Usuario";
+    }
+
+}
+
 function getQlikToken() {
+
+
 for (var i = 0; i < sessionStorage.length; i++) {
 var key = sessionStorage.key(i);
 if (key && key.indexOf("qlik") !== -1 && key.indexOf("access-token") !== -1) {
@@ -1071,6 +1218,7 @@ while(
 await new Promise(r => setTimeout(r,500));
 }
 await filtrarAccesoPorApp();
+await cargarUsuario();
 });
 })();
 </script>
