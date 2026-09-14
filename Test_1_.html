@@ -370,6 +370,43 @@ display:flex;align-items:center;justify-content:center;margin-bottom:6px;
 @media (orientation: landscape){
 #app{max-width:min(1100px, 100%);}
 } 
+/* ===== Loading Qlik ===== */
+    .obj-mount,
+    .update-date{
+    position: relative;
+    }
+    .qlik-loading{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    background:rgba(255,255,255,0.95);
+    z-index:10;
+    transition:opacity .3s ease;
+    }
+    .qlik-loading.hidden{
+    opacity:0;
+    pointer-events:none;
+    }
+    .qlik-spinner{
+    width:34px;
+    height:34px;
+    border:3px solid rgba(0,0,0,.12);
+    border-top-color:var(--gold);
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    }
+    .qlik-loading span{
+    font-size:14px;
+    color:var(--muted);
+    font-weight:500;
+    }
+    @keyframes spin{
+    to{ transform:rotate(360deg); }
+    }
 </style>
 </head>
 <body>
@@ -899,15 +936,33 @@ return Array.prototype.slice.call(root.querySelectorAll("[data-app-id]"));
 }
 
 function crearEmbed(mount){
-if (loadedMounts.has(mount)) return null;
-var embed = document.createElement("qlik-embed");
-embed.setAttribute("ui", mount.getAttribute("data-ui"));
-embed.setAttribute("app-id", mount.getAttribute("data-app-id"));
-embed.setAttribute("object-id", mount.getAttribute("data-object-id"));
-mount.appendChild(embed);
-loadedMounts.add(mount);
-return embed;
-}
+    if (loadedMounts.has(mount)) return null;
+    // Loader
+    var loader = document.createElement("div");
+    loader.className = "qlik-loading";
+    loader.innerHTML =
+    '<div class="qlik-spinner"></div>' +
+    '<span>Actualizando datos...</span>';
+    mount.appendChild(loader);
+    // Embed
+    var embed = document.createElement("qlik-embed");
+    embed.setAttribute("ui", mount.getAttribute("data-ui"));
+    embed.setAttribute("app-id", mount.getAttribute("data-app-id"));
+    embed.setAttribute("object-id", mount.getAttribute("data-object-id"));
+    mount.appendChild(embed);
+    // Ocultar loader cuando termine
+    function ocultarLoader(){
+    loader.classList.add("hidden");
+    setTimeout(function(){
+    loader.remove();
+    },300);
+    }
+    embed.addEventListener("load", ocultarLoader, { once:true });
+    // Fallback por si algún objeto no dispara el evento
+    setTimeout(ocultarLoader, 5000);
+    loadedMounts.add(mount);
+    return embed;
+    }
 
 // Añade los objetos pendientes de una hoja a la cola.
 // prioridad = true -> se ponen al principio de la cola (máxima prioridad).
